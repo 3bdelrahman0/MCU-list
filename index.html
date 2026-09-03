@@ -6,9 +6,6 @@
 
     <title>Marvel Marathon Tracker</title>
 
-    <link rel="icon" type="image/png" href="icon.png">
-    <link rel="apple-touch-icon" href="icon.png">
-
     <style>
         :root {
             --bg-color: #0f0f12;
@@ -325,6 +322,14 @@
             background-color: var(--card-bg);
         }
 
+        .status-note {
+            text-align: center;
+            font-size: 12px;
+            color: var(--secondary-text);
+            margin-top: 10px;
+            min-height: 16px;
+        }
+
         @media (max-width: 500px) {
 
             body {
@@ -359,7 +364,7 @@
             <span>Progress Tracker</span>
 
             <span id="progress-text">
-                0 / 0 (0%)
+                Loading...
             </span>
 
         </div>
@@ -375,6 +380,8 @@
 
     </div>
 
+    <div class="status-note" id="status-note"></div>
+
 </header>
 
 
@@ -388,7 +395,6 @@
 
 /* =========================================================
    MARVEL MARATHON
-   FINAL VERSION
    Current through September 3, 2026
 
    ORDER:
@@ -399,8 +405,11 @@
    - Upcoming projects are listed but cannot be marked watched
 
    STORAGE:
-   - New permanent IDs
-   - Automatic migration from the ORIGINAL index-based tracker
+   - Uses the artifact's built-in persistent storage
+     (window.storage), which survives reloads and is
+     scoped to this artifact per user. Browser localStorage
+     does NOT work inside Claude artifacts, which is why
+     progress never actually saved before.
 ========================================================= */
 
 
@@ -1121,6 +1130,17 @@ const marvelData = [
         "Phase 6"
     ),
 
+
+    /* =====================================================
+       MCU — PHASE 6 (UPCOMING)
+
+       Release order confirmed as of Sept 2026:
+       VisionQuest (Oct 2026) -> Avengers: Doomsday (Dec 2026)
+       -> Your Friendly Neighborhood Spider-Man S2 (Jan 2027,
+          delayed from its original fall 2026 date)
+       -> Avengers: Secret Wars (Dec 2027)
+    ===================================================== */
+
     item(
         "mcu-visionquest",
         "VisionQuest",
@@ -1136,6 +1156,16 @@ const marvelData = [
         "Avengers: Doomsday",
         "2026",
         "Movie",
+        "MCU",
+        "Phase 6 — Upcoming",
+        { upcoming: true }
+    ),
+
+    item(
+        "mcu-friendly-neighborhood-s2",
+        "Your Friendly Neighborhood Spider-Man (Season 2)",
+        "2027",
+        "Series",
         "MCU",
         "Phase 6 — Upcoming",
         { upcoming: true }
@@ -1692,200 +1722,65 @@ const marvelData = [
 
 
 /* =========================================================
-   ORIGINAL LIST INDEXES
-
-   This is the EXACT index order from your ORIGINAL code.
-
-   This lets the new tracker migrate:
-       marvel-watched-0
-       marvel-watched-1
-       ...
-   into the new permanent-ID system.
-
-   IMPORTANT:
-   Do NOT delete this section.
+   DOM REFERENCES
+   (These were missing entirely before — the script
+   referenced `container`, `progressText`, and
+   `progressBar` without ever grabbing them from the page,
+   which threw an error immediately and stopped the whole
+   tracker from rendering.)
 ========================================================= */
 
-const legacyIndexMap = [
-
-    /* 0 - 5 */
-    "mcu-iron-man",
-    "mcu-incredible-hulk",
-    "mcu-iron-man-2",
-    "mcu-thor",
-    "mcu-captain-america-first-avenger",
-    "mcu-avengers",
-
-    /* 6 - 11 */
-    "mcu-iron-man-3",
-    "mcu-thor-dark-world",
-    "mcu-winter-soldier",
-    "mcu-guardians-1",
-    "mcu-age-of-ultron",
-    "mcu-ant-man",
-
-    /* 12 - 22 */
-    "mcu-civil-war",
-    "mcu-doctor-strange",
-    "mcu-guardians-2",
-    "mcu-spider-man-homecoming",
-    "mcu-thor-ragnarok",
-    "mcu-black-panther",
-    "mcu-infinity-war",
-    "mcu-ant-man-wasp",
-    "mcu-captain-marvel",
-    "mcu-endgame",
-    "mcu-far-from-home",
-
-    /* 23 - 40 */
-    "mcu-wandavision",
-    "mcu-falcon-winter-soldier",
-    "mcu-loki-s1",
-    "mcu-black-widow",
-    "mcu-what-if-s1",
-    "mcu-shang-chi",
-    "mcu-eternals",
-    "mcu-hawkeye",
-    "mcu-no-way-home",
-    "mcu-moon-knight",
-    "mcu-doctor-strange-2",
-    "mcu-ms-marvel",
-    "mcu-thor-love-thunder",
-    "mcu-i-am-groot-s1",
-    "mcu-she-hulk",
-    "mcu-werewolf",
-    "mcu-wakanda-forever",
-    "mcu-guardians-holiday",
-
-    /* 41 - 57 */
-    "mcu-quantumania",
-    "mcu-guardians-3",
-    "mcu-secret-invasion",
-    "mcu-i-am-groot-s2",
-    "mcu-loki-s2",
-    "mcu-marvels",
-    "mcu-what-if-s2",
-    "mcu-echo",
-
-    /*
-       Original X-Men '97 S1 was here.
-       It is now correctly stored in the X-MEN section.
-    */
-    "xmen-97-s1",
-
-    "mcu-deadpool-wolverine",
-    "mcu-agatha",
-    "mcu-what-if-s3",
-    "mcu-friendly-neighborhood-s1",
-    "mcu-brave-new-world",
-    "mcu-born-again-s1",
-    "mcu-thunderbolts",
-    "mcu-ironheart",
-
-    /* 58 - 67 */
-    /*
-       Original Phase 6
-    */
-
-    "mcu-fantastic-four",
-    "mcu-eyes-wakanda",
-    "mcu-marvel-zombies",
-    "mcu-wonder-man",
-    "mcu-born-again-s2",
-    "mcu-punisher-one-last-kill",
-    "mcu-brand-new-day",
-
-    /*
-       Original code had X-Men '97 S2 here.
-       It is now correctly stored in X-MEN.
-    */
-    "xmen-97-s2",
-
-    "mcu-doomsday",
-
-    /*
-       Original array ended here.
-    */
-];
+const container = document.getElementById("list-container");
+const progressText = document.getElementById("progress-text");
+const progressBar = document.getElementById("progress-bar");
+const statusNote = document.getElementById("status-note");
 
 
 /* =========================================================
    STORAGE
+
+   Uses the artifact's persistent key-value storage
+   (window.storage) instead of localStorage, which is
+   blocked inside Claude artifacts. Data is personal
+   (not shared) and keyed by each item's permanent id, so
+   it stays stable even if items are reordered later.
 ========================================================= */
 
-const STORAGE_PREFIX = "marvel-watched-v2-";
+const WATCHED_PREFIX = "watched:";
 
-
-function getStorageKey(item) {
-    return STORAGE_PREFIX + item.id;
+function getStorageKey(itemObj) {
+    return WATCHED_PREFIX + itemObj.id;
 }
 
+let watchedIds = new Set();
+let storageAvailable = true;
 
-function isWatched(item) {
+async function loadWatchedIds() {
     try {
-        return localStorage.getItem(getStorageKey(item)) === "true";
+        const result = await window.storage.list(WATCHED_PREFIX, false);
+        const keys = (result && result.keys) || [];
+        const ids = keys.map(k => k.slice(WATCHED_PREFIX.length));
+        return new Set(ids);
     } catch (error) {
-        console.warn("localStorage is unavailable:", error);
-        return false;
+        console.warn("Could not load watch progress:", error);
+        storageAvailable = false;
+        return new Set();
     }
 }
 
-
-function setWatched(item, value) {
+async function setWatched(itemObj, watched) {
+    const key = getStorageKey(itemObj);
     try {
-        localStorage.setItem(getStorageKey(item), value);
+        if (watched) {
+            await window.storage.set(key, "true", false);
+        } else {
+            await window.storage.delete(key, false);
+        }
     } catch (error) {
         console.warn("Could not save watch progress:", error);
+        storageAvailable = false;
+        renderStatusNote();
     }
-}
-
-
-/* =========================================================
-   MIGRATE OLD PROGRESS
-========================================================= */
-
-function migrateOldProgress() {
-
-    legacyIndexMap.forEach((newId, oldIndex) => {
-
-        const oldKey =
-            `marvel-watched-${oldIndex}`;
-
-        let oldValue = null;
-        try {
-            oldValue = localStorage.getItem(oldKey);
-        } catch (error) {
-            console.warn("Could not read old watch progress:", error);
-        }
-
-        if (oldValue !== "true") {
-            return;
-        }
-
-        const newItem =
-            marvelData.find(
-                item => item.id === newId
-            );
-
-        if (!newItem) {
-            return;
-        }
-
-        const newKey =
-            getStorageKey(newItem);
-
-        /*
-           Never overwrite new progress if it already exists.
-        */
-
-        try {
-            if (localStorage.getItem(newKey) === null) {
-                localStorage.setItem(newKey, "true");
-            }
-        } catch (error) {
-            console.warn("Could not migrate watch progress:", error);
-        }
-    });
 }
 
 
@@ -1893,21 +1788,21 @@ function migrateOldProgress() {
    BADGE CLASS
 ========================================================= */
 
-function getBadgeClass(item) {
+function getBadgeClass(itemObj) {
 
-    if (item.upcoming) {
+    if (itemObj.upcoming) {
         return "badge-upcoming";
     }
 
-    if (item.type === "Movie") {
+    if (itemObj.type === "Movie") {
         return "badge-movie";
     }
 
-    if (item.type === "Series") {
+    if (itemObj.type === "Series") {
 
         if (
-            item.section === "X-MEN" ||
-            item.section === "MARVEL LEGACY"
+            itemObj.section === "X-MEN" ||
+            itemObj.section === "MARVEL LEGACY"
         ) {
             return "badge-legacy";
         }
@@ -1915,7 +1810,7 @@ function getBadgeClass(item) {
         return "badge-series";
     }
 
-    if (item.type === "Special") {
+    if (itemObj.type === "Special") {
         return "badge-special";
     }
 
@@ -1935,15 +1830,15 @@ function renderList() {
     let currentPhase = "";
 
 
-    marvelData.forEach((item) => {
+    marvelData.forEach((itemObj) => {
 
         /* -------------------------------------------------
            SECTION HEADER
         ------------------------------------------------- */
 
-        if (item.section !== currentSection) {
+        if (itemObj.section !== currentSection) {
 
-            currentSection = item.section;
+            currentSection = itemObj.section;
             currentPhase = "";
 
             const section =
@@ -1973,8 +1868,8 @@ function renderList() {
 
 
             section.textContent =
-                sectionNames[item.section] ||
-                item.section;
+                sectionNames[itemObj.section] ||
+                itemObj.section;
 
 
             container.appendChild(section);
@@ -1985,9 +1880,9 @@ function renderList() {
            PHASE HEADER
         ------------------------------------------------- */
 
-        if (item.phase !== currentPhase) {
+        if (itemObj.phase !== currentPhase) {
 
-            currentPhase = item.phase;
+            currentPhase = itemObj.phase;
 
             const divider =
                 document.createElement("div");
@@ -1996,7 +1891,7 @@ function renderList() {
                 "phase-divider";
 
             divider.textContent =
-                item.phase;
+                itemObj.phase;
 
             container.appendChild(divider);
         }
@@ -2013,20 +1908,20 @@ function renderList() {
             "item-card";
 
         card.id =
-            `marvel-${item.id}`;
+            `marvel-${itemObj.id}`;
 
 
         /* -------------------------------------------------
            UPCOMING
         ------------------------------------------------- */
 
-        if (item.upcoming) {
+        if (itemObj.upcoming) {
 
             card.classList.add(
                 "upcoming-card"
             );
 
-        } else if (isWatched(item)) {
+        } else if (watchedIds.has(itemObj.id)) {
 
             card.classList.add(
                 "watched"
@@ -2039,13 +1934,13 @@ function renderList() {
         ------------------------------------------------- */
 
         const badgeClass =
-            getBadgeClass(item);
+            getBadgeClass(itemObj);
 
 
         const badgeText =
-            item.upcoming
+            itemObj.upcoming
                 ? "Upcoming"
-                : item.type;
+                : itemObj.type;
 
 
         /* -------------------------------------------------
@@ -2060,13 +1955,13 @@ function renderList() {
                 <div class="info-block">
 
                     <span class="title">
-                        ${item.title}
+                        ${itemObj.title}
                     </span>
 
                     <div class="meta">
 
                         <span>
-                            ${item.year}
+                            ${itemObj.year}
                         </span>
 
                         <span class="badge ${badgeClass}">
@@ -2085,23 +1980,32 @@ function renderList() {
            CLICK
         ------------------------------------------------- */
 
-        if (!item.upcoming) {
+        if (!itemObj.upcoming) {
 
             card.addEventListener(
                 "click",
-                () => {
+                async () => {
 
-                    const watched =
-                        card.classList.toggle(
-                            "watched"
-                        );
+                    const willBeWatched =
+                        !card.classList.contains("watched");
 
-                    setWatched(
-                        item,
-                        watched
+                    card.classList.toggle(
+                        "watched",
+                        willBeWatched
                     );
 
+                    if (willBeWatched) {
+                        watchedIds.add(itemObj.id);
+                    } else {
+                        watchedIds.delete(itemObj.id);
+                    }
+
                     updateProgress();
+
+                    await setWatched(
+                        itemObj,
+                        willBeWatched
+                    );
                 }
             );
         }
@@ -2121,14 +2025,14 @@ function renderList() {
        "0 / 100"
    does not become:
        "0 / 105"
-   because five future projects exist.
+   because a handful of future projects exist.
 ========================================================= */
 
 function updateProgress() {
 
     const watchableItems =
         marvelData.filter(
-            item => !item.upcoming
+            itemObj => !itemObj.upcoming
         );
 
     const total =
@@ -2137,7 +2041,7 @@ function updateProgress() {
 
     const watched =
         watchableItems.filter(
-            item => isWatched(item)
+            itemObj => watchedIds.has(itemObj.id)
         ).length;
 
 
@@ -2159,21 +2063,31 @@ function updateProgress() {
 
 
 /* =========================================================
+   STATUS NOTE
+========================================================= */
+
+function renderStatusNote() {
+    if (!storageAvailable) {
+        statusNote.textContent =
+            "Progress couldn't be saved right now — your checks may not persist after a refresh.";
+    } else {
+        statusNote.textContent = "";
+    }
+}
+
+
+/* =========================================================
    START APP
 ========================================================= */
 
-/* Render first so the list still appears even if browser storage is unavailable. */
-renderList();
-
-try {
-    migrateOldProgress();
-} catch (error) {
-    console.warn("Progress migration skipped:", error);
+async function init() {
+    watchedIds = await loadWatchedIds();
+    renderList();
+    updateProgress();
+    renderStatusNote();
 }
 
-/* Re-render so any migrated watched items are immediately shown. */
-renderList();
-updateProgress();
+init();
 
 </script>
 
