@@ -1746,41 +1746,42 @@ const statusNote = document.getElementById("status-note");
    it stays stable even if items are reordered later.
 ========================================================= */
 
-const WATCHED_PREFIX = "watched:";
-
-function getStorageKey(itemObj) {
-    return WATCHED_PREFIX + itemObj.id;
-}
+const WATCHED_KEY = "watched-ids";
 
 let watchedIds = new Set();
 let storageAvailable = true;
 
 async function loadWatchedIds() {
     try {
-        const result = await window.storage.list(WATCHED_PREFIX, false);
-        const keys = (result && result.keys) || [];
-        const ids = keys.map(k => k.slice(WATCHED_PREFIX.length));
-        return new Set(ids);
+        const result = await window.storage.get(WATCHED_KEY, false);
+        if (!result || typeof result.value !== "string") {
+            return new Set();
+        }
+        const parsed = JSON.parse(result.value);
+        return new Set(Array.isArray(parsed) ? parsed : []);
     } catch (error) {
-        console.warn("Could not load watch progress:", error);
-        storageAvailable = false;
+        /* Key doesn't exist yet on a first-ever visit, or storage
+           is unavailable. Either way, start with nothing checked. */
         return new Set();
     }
 }
 
-async function setWatched(itemObj, watched) {
-    const key = getStorageKey(itemObj);
+async function saveWatchedIds() {
     try {
-        if (watched) {
-            await window.storage.set(key, "true", false);
-        } else {
-            await window.storage.delete(key, false);
+        const result = await window.storage.set(
+            WATCHED_KEY,
+            JSON.stringify(Array.from(watchedIds)),
+            false
+        );
+        if (!result) {
+            throw new Error("Storage write returned no result");
         }
+        storageAvailable = true;
     } catch (error) {
         console.warn("Could not save watch progress:", error);
         storageAvailable = false;
-        renderStatusNote();
     }
+    renderStatusNote();
 }
 
 
@@ -2002,10 +2003,7 @@ function renderList() {
 
                     updateProgress();
 
-                    await setWatched(
-                        itemObj,
-                        willBeWatched
-                    );
+                    await saveWatchedIds();
                 }
             );
         }
