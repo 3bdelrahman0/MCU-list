@@ -14,7 +14,6 @@
             --accent-color: #e50914;
             --secondary-text: #b3b3b3;
             --success-color: #2e7d32;
-            --upcoming-color: #555;
         }
 
         * {
@@ -54,27 +53,18 @@
 
         h1 {
             color: var(--accent-color);
-
             font-size: 24px;
-
             margin: 0 0 15px;
-
             text-transform: uppercase;
             letter-spacing: 2px;
         }
 
         .progress-container {
             background-color: #2a2a35;
-
             border-radius: 10px;
-
             padding: 12px;
-
             margin-bottom: 5px;
-
-            box-shadow:
-                0 4px 6px rgba(0,0,0,0.3);
-
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
             width: 100%;
         }
 
@@ -82,7 +72,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-
             font-size: 14px;
         }
 
@@ -92,85 +81,67 @@
 
         .progress-bar-bg {
             background-color: #111;
-
             border-radius: 5px;
-
             height: 10px;
             width: 100%;
-
             overflow: hidden;
-
             margin-top: 8px;
         }
 
         .progress-bar {
             background-color: var(--accent-color);
-
             height: 100%;
             width: 0%;
-
             transition: width 0.3s ease;
+        }
+
+        .status-note {
+            text-align: center;
+            font-size: 12px;
+            color: var(--secondary-text);
+            margin-top: 10px;
+            min-height: 16px;
         }
 
         .list-container {
             width: 100%;
             max-width: 550px;
-
             display: flex;
             flex-direction: column;
-
             gap: 8px;
         }
 
         .section-divider {
             font-size: 14px;
             font-weight: bold;
-
             color: var(--accent-color);
-
             margin: 25px 0 5px 5px;
-
             text-transform: uppercase;
             letter-spacing: 1px;
-
             border-bottom: 1px solid #333;
-
             padding-bottom: 5px;
         }
 
         .phase-divider {
             font-size: 13px;
             font-weight: bold;
-
             color: #aaa;
-
             margin: 12px 0 3px 5px;
-
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         .item-card {
             background-color: var(--card-bg);
-
             border-radius: 8px;
-
             padding: 12px 15px;
-
             display: flex;
             align-items: center;
             justify-content: space-between;
-
-            box-shadow:
-                0 2px 4px rgba(0,0,0,0.2);
-
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
             user-select: none;
-
             cursor: pointer;
-
-            transition:
-                background-color 0.2s,
-                transform 0.1s;
+            transition: background-color 0.2s, transform 0.1s;
         }
 
         .item-card:hover {
@@ -184,44 +155,32 @@
         .item-left {
             display: flex;
             align-items: center;
-
             gap: 12px;
-
             flex: 1;
-
             min-width: 0;
         }
 
         .checkbox-custom {
             width: 22px;
             height: 22px;
-
             border: 2px solid #555;
-
             border-radius: 6px;
-
             display: flex;
             align-items: center;
             justify-content: center;
-
             transition: all 0.2s;
-
             flex-shrink: 0;
         }
 
         .item-card.watched .checkbox-custom {
             background-color: var(--success-color);
-
             border-color: var(--success-color);
         }
 
         .checkbox-custom::after {
             content: "✓";
-
             color: white;
-
             font-size: 14px;
-
             display: none;
         }
 
@@ -232,86 +191,46 @@
         .info-block {
             display: flex;
             flex-direction: column;
-
             min-width: 0;
         }
 
         .title {
             font-size: 16px;
-
             font-weight: 600;
-
             line-height: 1.3;
-
-            transition:
-                color 0.2s,
-                text-decoration 0.2s;
+            transition: color 0.2s, text-decoration 0.2s;
         }
 
         .item-card.watched .title {
             color: var(--secondary-text);
-
             text-decoration: line-through;
         }
 
         .meta {
             display: flex;
             align-items: center;
-
             flex-wrap: wrap;
-
             gap: 7px;
-
             font-size: 12px;
-
             color: var(--secondary-text);
-
             margin-top: 3px;
         }
 
         .badge {
             font-size: 10px;
-
             padding: 2px 6px;
-
             border-radius: 4px;
-
             font-weight: bold;
-
             text-transform: uppercase;
-
             display: inline-block;
         }
 
-        .badge-movie {
-            background-color: #3949ab;
-            color: white;
-        }
-
-        .badge-series {
-            background-color: #8e24aa;
-            color: white;
-        }
-
-        .badge-special {
-            background-color: #f4511e;
-            color: white;
-        }
-
-        .badge-animation {
-            background-color: #00897b;
-            color: white;
-        }
-
-        .badge-legacy {
-            background-color: #616161;
-            color: white;
-        }
-
-        .badge-upcoming {
-            background-color: #424242;
-            color: #ddd;
-        }
+        .badge-movie { background-color: #3949ab; color: white; }
+        .badge-series { background-color: #8e24aa; color: white; }
+        .badge-special { background-color: #f4511e; color: white; }
+        .badge-animation { background-color: #00897b; color: white; }
+        .badge-legacy { background-color: #616161; color: white; }
+        .badge-upcoming { background-color: #424242; color: #ddd; }
 
         .upcoming-card {
             opacity: 0.75;
@@ -322,31 +241,11 @@
             background-color: var(--card-bg);
         }
 
-        .status-note {
-            text-align: center;
-            font-size: 12px;
-            color: var(--secondary-text);
-            margin-top: 10px;
-            min-height: 16px;
-        }
-
         @media (max-width: 500px) {
-
-            body {
-                padding: 12px;
-            }
-
-            h1 {
-                font-size: 22px;
-            }
-
-            .item-card {
-                padding: 11px 12px;
-            }
-
-            .title {
-                font-size: 15px;
-            }
+            body { padding: 12px; }
+            h1 { font-size: 22px; }
+            .item-card { padding: 11px 12px; }
+            .title { font-size: 15px; }
         }
     </style>
 </head>
@@ -354,1380 +253,253 @@
 <body>
 
 <header>
-
     <h1>Marvel Marathon</h1>
 
     <div class="progress-container">
-
         <div class="progress-header">
-
             <span>Progress Tracker</span>
-
-            <span id="progress-text">
-                Loading...
-            </span>
-
+            <span id="progress-text">0 / 0 (0%)</span>
         </div>
-
         <div class="progress-bar-bg">
-
-            <div
-                class="progress-bar"
-                id="progress-bar">
-            </div>
-
+            <div class="progress-bar" id="progress-bar"></div>
         </div>
-
     </div>
 
     <div class="status-note" id="status-note"></div>
-
 </header>
 
-
-<div
-    class="list-container"
-    id="list-container">
-</div>
-
+<div class="list-container" id="list-container"></div>
 
 <script>
 
 /* =========================================================
-   MARVEL MARATHON
+   MARVEL MARATHON TRACKER
    Current through September 3, 2026
 
-   ORDER:
-   - First-time-friendly release/story order
-   - Series seasons are kept together
-   - MCU is the main marathon
-   - Non-MCU Marvel is separated
-   - Upcoming projects are listed but cannot be marked watched
+   Plain, static, self-contained page. No external services,
+   no frameworks, no Claude-specific APIs. Works on GitHub
+   Pages or any static host.
 
-   STORAGE:
-   - Uses the artifact's built-in persistent storage
-     (window.storage), which survives reloads and is
-     scoped to this artifact per user. Browser localStorage
-     does NOT work inside Claude artifacts, which is why
-     progress never actually saved before.
+   Progress is saved with the browser's built-in
+   localStorage, under a single key holding a JSON array of
+   watched item ids. localStorage is per-browser, per-device
+   — it will not follow you to a different browser/computer.
 ========================================================= */
 
-
-/* =========================================================
-   DATA HELPER
-========================================================= */
-
-function item(
-    id,
-    title,
-    year,
-    type,
-    section,
-    phase,
-    options = {}
-) {
+function item(id, title, year, type, section, phase, options) {
+    options = options || {};
     return {
-        id,
-        title,
-        year,
-        type,
-        section,
-        phase,
+        id: id,
+        title: title,
+        year: year,
+        type: type,
+        section: section,
+        phase: phase,
         upcoming: options.upcoming || false
     };
 }
 
-
-/* =========================================================
-   MCU
-   RELEASE / FIRST-WATCH ORDER
-
-   Marvel's current Complete MCU Timeline includes the
-   Defenders Saga seasons.
-
-   We keep each entire season together because that is
-   the user's preferred viewing method.
-========================================================= */
-
 const marvelData = [
 
-    /* =====================================================
-       MCU — PHASE 1
-    ===================================================== */
-
+    /* ---------- MCU — PHASE 1 ---------- */
     item("mcu-iron-man", "Iron Man", "2008", "Movie", "MCU", "Phase 1"),
-
     item("mcu-incredible-hulk", "The Incredible Hulk", "2008", "Movie", "MCU", "Phase 1"),
-
     item("mcu-iron-man-2", "Iron Man 2", "2010", "Movie", "MCU", "Phase 1"),
-
     item("mcu-thor", "Thor", "2011", "Movie", "MCU", "Phase 1"),
-
-    item(
-        "mcu-captain-america-first-avenger",
-        "Captain America: The First Avenger",
-        "2011",
-        "Movie",
-        "MCU",
-        "Phase 1"
-    ),
-
+    item("mcu-captain-america-first-avenger", "Captain America: The First Avenger", "2011", "Movie", "MCU", "Phase 1"),
     item("mcu-avengers", "The Avengers", "2012", "Movie", "MCU", "Phase 1"),
 
-
-    /* =====================================================
-       MCU — PHASE 2
-    ===================================================== */
-
+    /* ---------- MCU — PHASE 2 ---------- */
     item("mcu-iron-man-3", "Iron Man 3", "2013", "Movie", "MCU", "Phase 2"),
-
-    item(
-        "mcu-thor-dark-world",
-        "Thor: The Dark World",
-        "2013",
-        "Movie",
-        "MCU",
-        "Phase 2"
-    ),
-
-    item(
-        "mcu-winter-soldier",
-        "Captain America: The Winter Soldier",
-        "2014",
-        "Movie",
-        "MCU",
-        "Phase 2"
-    ),
-
-    item(
-        "mcu-guardians-1",
-        "Guardians of the Galaxy",
-        "2014",
-        "Movie",
-        "MCU",
-        "Phase 2"
-    ),
-
-    item(
-        "mcu-age-of-ultron",
-        "Avengers: Age of Ultron",
-        "2015",
-        "Movie",
-        "MCU",
-        "Phase 2"
-    ),
-
+    item("mcu-thor-dark-world", "Thor: The Dark World", "2013", "Movie", "MCU", "Phase 2"),
+    item("mcu-winter-soldier", "Captain America: The Winter Soldier", "2014", "Movie", "MCU", "Phase 2"),
+    item("mcu-guardians-1", "Guardians of the Galaxy", "2014", "Movie", "MCU", "Phase 2"),
+    item("mcu-age-of-ultron", "Avengers: Age of Ultron", "2015", "Movie", "MCU", "Phase 2"),
     item("mcu-ant-man", "Ant-Man", "2015", "Movie", "MCU", "Phase 2"),
 
-
-    /* =====================================================
-       MCU — PHASE 3
-    ===================================================== */
-
-    item(
-        "mcu-civil-war",
-        "Captain America: Civil War",
-        "2016",
-        "Movie",
-        "MCU",
-        "Phase 3"
-    ),
-
-    item(
-        "mcu-doctor-strange",
-        "Doctor Strange",
-        "2016",
-        "Movie",
-        "MCU",
-        "Phase 3"
-    ),
-
-    item(
-        "mcu-guardians-2",
-        "Guardians of the Galaxy Vol. 2",
-        "2017",
-        "Movie",
-        "MCU",
-        "Phase 3"
-    ),
-
-    item(
-        "mcu-spider-man-homecoming",
-        "Spider-Man: Homecoming",
-        "2017",
-        "Movie",
-        "MCU",
-        "Phase 3"
-    ),
-
-    item(
-        "mcu-thor-ragnarok",
-        "Thor: Ragnarok",
-        "2017",
-        "Movie",
-        "MCU",
-        "Phase 3"
-    ),
-
-    item(
-        "mcu-black-panther",
-        "Black Panther",
-        "2018",
-        "Movie",
-        "MCU",
-        "Phase 3"
-    ),
-
-    item(
-        "mcu-infinity-war",
-        "Avengers: Infinity War",
-        "2018",
-        "Movie",
-        "MCU",
-        "Phase 3"
-    ),
-
-    item(
-        "mcu-ant-man-wasp",
-        "Ant-Man and the Wasp",
-        "2018",
-        "Movie",
-        "MCU",
-        "Phase 3"
-    ),
-
-    item(
-        "mcu-captain-marvel",
-        "Captain Marvel",
-        "2019",
-        "Movie",
-        "MCU",
-        "Phase 3"
-    ),
-
-    item(
-        "mcu-endgame",
-        "Avengers: Endgame",
-        "2019",
-        "Movie",
-        "MCU",
-        "Phase 3"
-    ),
-
-    item(
-        "mcu-far-from-home",
-        "Spider-Man: Far From Home",
-        "2019",
-        "Movie",
-        "MCU",
-        "Phase 3"
-    ),
-
-
-    /* =====================================================
-       DEFENDERS SAGA
-       PART OF CURRENT MCU COMPLETE TIMELINE
-    ===================================================== */
-
-    item(
-        "dd-s1",
-        "Daredevil (Season 1)",
-        "2015",
-        "Series",
-        "MCU",
-        "Defenders Saga"
-    ),
-
-    item(
-        "jj-s1",
-        "Jessica Jones (Season 1)",
-        "2015",
-        "Series",
-        "MCU",
-        "Defenders Saga"
-    ),
-
-    item(
-        "dd-s2",
-        "Daredevil (Season 2)",
-        "2016",
-        "Series",
-        "MCU",
-        "Defenders Saga"
-    ),
-
-    item(
-        "luke-s1",
-        "Luke Cage (Season 1)",
-        "2016",
-        "Series",
-        "MCU",
-        "Defenders Saga"
-    ),
-
-    item(
-        "iron-fist-s1",
-        "Iron Fist (Season 1)",
-        "2017",
-        "Series",
-        "MCU",
-        "Defenders Saga"
-    ),
-
-    item(
-        "defenders-s1",
-        "The Defenders (Season 1)",
-        "2017",
-        "Series",
-        "MCU",
-        "Defenders Saga"
-    ),
-
-    item(
-        "punisher-s1",
-        "The Punisher (Season 1)",
-        "2017",
-        "Series",
-        "MCU",
-        "Defenders Saga"
-    ),
-
-    item(
-        "jj-s2",
-        "Jessica Jones (Season 2)",
-        "2018",
-        "Series",
-        "MCU",
-        "Defenders Saga"
-    ),
-
-    item(
-        "luke-s2",
-        "Luke Cage (Season 2)",
-        "2018",
-        "Series",
-        "MCU",
-        "Defenders Saga"
-    ),
-
-    item(
-        "iron-fist-s2",
-        "Iron Fist (Season 2)",
-        "2018",
-        "Series",
-        "MCU",
-        "Defenders Saga"
-    ),
-
-    item(
-        "dd-s3",
-        "Daredevil (Season 3)",
-        "2018",
-        "Series",
-        "MCU",
-        "Defenders Saga"
-    ),
-
-    item(
-        "punisher-s2",
-        "The Punisher (Season 2)",
-        "2019",
-        "Series",
-        "MCU",
-        "Defenders Saga"
-    ),
-
-    item(
-        "jj-s3",
-        "Jessica Jones (Season 3)",
-        "2019",
-        "Series",
-        "MCU",
-        "Defenders Saga"
-    ),
-
-
-    /* =====================================================
-       MCU — PHASE 4
-    ===================================================== */
-
-    item(
-        "mcu-wandavision",
-        "WandaVision",
-        "2021",
-        "Series",
-        "MCU",
-        "Phase 4"
-    ),
-
-    item(
-        "mcu-falcon-winter-soldier",
-        "The Falcon and the Winter Soldier",
-        "2021",
-        "Series",
-        "MCU",
-        "Phase 4"
-    ),
-
-    item(
-        "mcu-loki-s1",
-        "Loki (Season 1)",
-        "2021",
-        "Series",
-        "MCU",
-        "Phase 4"
-    ),
-
-    item(
-        "mcu-black-widow",
-        "Black Widow",
-        "2021",
-        "Movie",
-        "MCU",
-        "Phase 4"
-    ),
-
-    item(
-        "mcu-what-if-s1",
-        "What If...? (Season 1)",
-        "2021",
-        "Series",
-        "MCU",
-        "Phase 4"
-    ),
-
-    item(
-        "mcu-shang-chi",
-        "Shang-Chi and the Legend of the Ten Rings",
-        "2021",
-        "Movie",
-        "MCU",
-        "Phase 4"
-    ),
-
-    item(
-        "mcu-eternals",
-        "Eternals",
-        "2021",
-        "Movie",
-        "MCU",
-        "Phase 4"
-    ),
-
-    item(
-        "mcu-hawkeye",
-        "Hawkeye",
-        "2021",
-        "Series",
-        "MCU",
-        "Phase 4"
-    ),
-
-    item(
-        "mcu-no-way-home",
-        "Spider-Man: No Way Home",
-        "2021",
-        "Movie",
-        "MCU",
-        "Phase 4"
-    ),
-
-    item(
-        "mcu-moon-knight",
-        "Moon Knight",
-        "2022",
-        "Series",
-        "MCU",
-        "Phase 4"
-    ),
-
-    item(
-        "mcu-doctor-strange-2",
-        "Doctor Strange in the Multiverse of Madness",
-        "2022",
-        "Movie",
-        "MCU",
-        "Phase 4"
-    ),
-
-    item(
-        "mcu-ms-marvel",
-        "Ms. Marvel",
-        "2022",
-        "Series",
-        "MCU",
-        "Phase 4"
-    ),
-
-    item(
-        "mcu-thor-love-thunder",
-        "Thor: Love and Thunder",
-        "2022",
-        "Movie",
-        "MCU",
-        "Phase 4"
-    ),
-
-    item(
-        "mcu-i-am-groot-s1",
-        "I Am Groot (Season 1)",
-        "2022",
-        "Series",
-        "MCU",
-        "Phase 4"
-    ),
-
-    item(
-        "mcu-she-hulk",
-        "She-Hulk: Attorney at Law",
-        "2022",
-        "Series",
-        "MCU",
-        "Phase 4"
-    ),
-
-    item(
-        "mcu-werewolf",
-        "Werewolf by Night",
-        "2022",
-        "Special",
-        "MCU",
-        "Phase 4"
-    ),
-
-    item(
-        "mcu-wakanda-forever",
-        "Black Panther: Wakanda Forever",
-        "2022",
-        "Movie",
-        "MCU",
-        "Phase 4"
-    ),
-
-    item(
-        "mcu-guardians-holiday",
-        "The Guardians of the Galaxy Holiday Special",
-        "2022",
-        "Special",
-        "MCU",
-        "Phase 4"
-    ),
-
-
-    /* =====================================================
-       MCU — PHASE 5
-    ===================================================== */
-
-    item(
-        "mcu-quantumania",
-        "Ant-Man and the Wasp: Quantumania",
-        "2023",
-        "Movie",
-        "MCU",
-        "Phase 5"
-    ),
-
-    item(
-        "mcu-guardians-3",
-        "Guardians of the Galaxy Vol. 3",
-        "2023",
-        "Movie",
-        "MCU",
-        "Phase 5"
-    ),
-
-    item(
-        "mcu-secret-invasion",
-        "Secret Invasion",
-        "2023",
-        "Series",
-        "MCU",
-        "Phase 5"
-    ),
-
-    item(
-        "mcu-i-am-groot-s2",
-        "I Am Groot (Season 2)",
-        "2023",
-        "Series",
-        "MCU",
-        "Phase 5"
-    ),
-
-    item(
-        "mcu-loki-s2",
-        "Loki (Season 2)",
-        "2023",
-        "Series",
-        "MCU",
-        "Phase 5"
-    ),
-
-    item(
-        "mcu-marvels",
-        "The Marvels",
-        "2023",
-        "Movie",
-        "MCU",
-        "Phase 5"
-    ),
-
-    item(
-        "mcu-what-if-s2",
-        "What If...? (Season 2)",
-        "2023",
-        "Series",
-        "MCU",
-        "Phase 5"
-    ),
-
-    item(
-        "mcu-echo",
-        "Echo",
-        "2024",
-        "Series",
-        "MCU",
-        "Phase 5"
-    ),
-
-    item(
-        "mcu-deadpool-wolverine",
-        "Deadpool & Wolverine",
-        "2024",
-        "Movie",
-        "MCU",
-        "Phase 5"
-    ),
-
-    item(
-        "mcu-agatha",
-        "Agatha All Along",
-        "2024",
-        "Series",
-        "MCU",
-        "Phase 5"
-    ),
-
-    item(
-        "mcu-what-if-s3",
-        "What If...? (Season 3)",
-        "2024",
-        "Series",
-        "MCU",
-        "Phase 5"
-    ),
-
-    item(
-        "mcu-friendly-neighborhood-s1",
-        "Your Friendly Neighborhood Spider-Man (Season 1)",
-        "2025",
-        "Series",
-        "MCU",
-        "Phase 5"
-    ),
-
-    item(
-        "mcu-brave-new-world",
-        "Captain America: Brave New World",
-        "2025",
-        "Movie",
-        "MCU",
-        "Phase 5"
-    ),
-
-    item(
-        "mcu-born-again-s1",
-        "Daredevil: Born Again (Season 1)",
-        "2025",
-        "Series",
-        "MCU",
-        "Phase 5"
-    ),
-
-    item(
-        "mcu-thunderbolts",
-        "Thunderbolts*",
-        "2025",
-        "Movie",
-        "MCU",
-        "Phase 5"
-    ),
-
-    item(
-        "mcu-ironheart",
-        "Ironheart",
-        "2025",
-        "Series",
-        "MCU",
-        "Phase 5"
-    ),
-
-
-    /* =====================================================
-       MCU — PHASE 6
-    ===================================================== */
-
-    item(
-        "mcu-fantastic-four",
-        "The Fantastic Four: First Steps",
-        "2025",
-        "Movie",
-        "MCU",
-        "Phase 6"
-    ),
-
-    item(
-        "mcu-eyes-wakanda",
-        "Eyes of Wakanda",
-        "2025",
-        "Series",
-        "MCU",
-        "Phase 6"
-    ),
-
-    item(
-        "mcu-marvel-zombies",
-        "Marvel Zombies",
-        "2025",
-        "Series",
-        "MCU",
-        "Phase 6"
-    ),
-
-    item(
-        "mcu-wonder-man",
-        "Wonder Man (Season 1)",
-        "2026",
-        "Series",
-        "MCU",
-        "Phase 6"
-    ),
-
-    item(
-        "mcu-born-again-s2",
-        "Daredevil: Born Again (Season 2)",
-        "2026",
-        "Series",
-        "MCU",
-        "Phase 6"
-    ),
-
-    item(
-        "mcu-punisher-one-last-kill",
-        "The Punisher: One Last Kill",
-        "2026",
-        "Special",
-        "MCU",
-        "Phase 6"
-    ),
-
-    item(
-        "mcu-brand-new-day",
-        "Spider-Man: Brand New Day",
-        "2026",
-        "Movie",
-        "MCU",
-        "Phase 6"
-    ),
-
-
-    /* =====================================================
-       MCU — PHASE 6 (UPCOMING)
-
-       Release order confirmed as of Sept 2026:
-       VisionQuest (Oct 2026) -> Avengers: Doomsday (Dec 2026)
-       -> Your Friendly Neighborhood Spider-Man S2 (Jan 2027,
-          delayed from its original fall 2026 date)
-       -> Avengers: Secret Wars (Dec 2027)
-    ===================================================== */
-
-    item(
-        "mcu-visionquest",
-        "VisionQuest",
-        "2026",
-        "Series",
-        "MCU",
-        "Phase 6 — Upcoming",
-        { upcoming: true }
-    ),
-
-    item(
-        "mcu-doomsday",
-        "Avengers: Doomsday",
-        "2026",
-        "Movie",
-        "MCU",
-        "Phase 6 — Upcoming",
-        { upcoming: true }
-    ),
-
-    item(
-        "mcu-friendly-neighborhood-s2",
-        "Your Friendly Neighborhood Spider-Man (Season 2)",
-        "2027",
-        "Series",
-        "MCU",
-        "Phase 6 — Upcoming",
-        { upcoming: true }
-    ),
-
-    item(
-        "mcu-secret-wars",
-        "Avengers: Secret Wars",
-        "2027",
-        "Movie",
-        "MCU",
-        "Phase 6 — Upcoming",
-        { upcoming: true }
-    ),
-
-
-    /* =====================================================
-       SPIDER-MAN — NON-MCU
-       WATCHED AS A SEPARATE MARVEL COLLECTION
-    ===================================================== */
-
-    item(
-        "spider-tobey-1",
-        "Spider-Man",
-        "2002",
-        "Movie",
-        "SPIDER-MAN",
-        "Tobey Maguire"
-    ),
-
-    item(
-        "spider-tobey-2",
-        "Spider-Man 2",
-        "2004",
-        "Movie",
-        "SPIDER-MAN",
-        "Tobey Maguire"
-    ),
-
-    item(
-        "spider-tobey-3",
-        "Spider-Man 3",
-        "2007",
-        "Movie",
-        "SPIDER-MAN",
-        "Tobey Maguire"
-    ),
-
-    item(
-        "spider-andrew-1",
-        "The Amazing Spider-Man",
-        "2012",
-        "Movie",
-        "SPIDER-MAN",
-        "Andrew Garfield"
-    ),
-
-    item(
-        "spider-andrew-2",
-        "The Amazing Spider-Man 2",
-        "2014",
-        "Movie",
-        "SPIDER-MAN",
-        "Andrew Garfield"
-    ),
-
-    item(
-        "spider-into-verse",
-        "Spider-Man: Into the Spider-Verse",
-        "2018",
-        "Movie",
-        "SPIDER-MAN",
-        "Spider-Verse"
-    ),
-
-    item(
-        "spider-across-verse",
-        "Spider-Man: Across the Spider-Verse",
-        "2023",
-        "Movie",
-        "SPIDER-MAN",
-        "Spider-Verse"
-    ),
-
-    item(
-        "spider-beyond-verse",
-        "Spider-Man: Beyond the Spider-Verse",
-        "2027",
-        "Movie",
-        "SPIDER-MAN",
-        "Spider-Verse — Upcoming",
-        { upcoming: true }
-    ),
-
-
-    /* =====================================================
-       SONY SPIDER-MAN UNIVERSE
-    ===================================================== */
-
-    item(
-        "sony-venom",
-        "Venom",
-        "2018",
-        "Movie",
-        "SONY",
-        "Sony Spider-Man Universe"
-    ),
-
-    item(
-        "sony-venom-2",
-        "Venom: Let There Be Carnage",
-        "2021",
-        "Movie",
-        "SONY",
-        "Sony Spider-Man Universe"
-    ),
-
-    item(
-        "sony-morbius",
-        "Morbius",
-        "2022",
-        "Movie",
-        "SONY",
-        "Sony Spider-Man Universe"
-    ),
-
-    item(
-        "sony-madame-web",
-        "Madame Web",
-        "2024",
-        "Movie",
-        "SONY",
-        "Sony Spider-Man Universe"
-    ),
-
-    item(
-        "sony-kraven",
-        "Kraven the Hunter",
-        "2024",
-        "Movie",
-        "SONY",
-        "Sony Spider-Man Universe"
-    ),
-
-    item(
-        "sony-venom-3",
-        "Venom: The Last Dance",
-        "2024",
-        "Movie",
-        "SONY",
-        "Sony Spider-Man Universe"
-    ),
-
-
-    /* =====================================================
-       X-MEN — LIVE ACTION
-    ===================================================== */
-
-    item(
-        "xmen-1",
-        "X-Men",
-        "2000",
-        "Movie",
-        "X-MEN",
-        "X-Men Movies"
-    ),
-
-    item(
-        "xmen-2",
-        "X2: X-Men United",
-        "2003",
-        "Movie",
-        "X-MEN",
-        "X-Men Movies"
-    ),
-
-    item(
-        "xmen-3",
-        "X-Men: The Last Stand",
-        "2006",
-        "Movie",
-        "X-MEN",
-        "X-Men Movies"
-    ),
-
-    item(
-        "xmen-wolverine-origins",
-        "X-Men Origins: Wolverine",
-        "2009",
-        "Movie",
-        "X-MEN",
-        "X-Men Movies"
-    ),
-
-    item(
-        "xmen-first-class",
-        "X-Men: First Class",
-        "2011",
-        "Movie",
-        "X-MEN",
-        "X-Men Movies"
-    ),
-
-    item(
-        "xmen-wolverine",
-        "The Wolverine",
-        "2013",
-        "Movie",
-        "X-MEN",
-        "X-Men Movies"
-    ),
-
-    item(
-        "xmen-days-future-past",
-        "X-Men: Days of Future Past",
-        "2014",
-        "Movie",
-        "X-MEN",
-        "X-Men Movies"
-    ),
-
-    item(
-        "xmen-deadpool",
-        "Deadpool",
-        "2016",
-        "Movie",
-        "X-MEN",
-        "X-Men Movies"
-    ),
-
-    item(
-        "xmen-apocalypse",
-        "X-Men: Apocalypse",
-        "2016",
-        "Movie",
-        "X-MEN",
-        "X-Men Movies"
-    ),
-
-    item(
-        "xmen-logan",
-        "Logan",
-        "2017",
-        "Movie",
-        "X-MEN",
-        "X-Men Movies"
-    ),
-
-    item(
-        "xmen-deadpool-2",
-        "Deadpool 2",
-        "2018",
-        "Movie",
-        "X-MEN",
-        "X-Men Movies"
-    ),
-
-    item(
-        "xmen-dark-phoenix",
-        "Dark Phoenix",
-        "2019",
-        "Movie",
-        "X-MEN",
-        "X-Men Movies"
-    ),
-
-    item(
-        "xmen-new-mutants",
-        "The New Mutants",
-        "2020",
-        "Movie",
-        "X-MEN",
-        "X-Men Movies"
-    ),
-
-
-    /* =====================================================
-       X-MEN / MARVEL ANIMATION
-    ===================================================== */
-
-    item(
-        "xmen-animated-series",
-        "X-Men: The Animated Series",
-        "1992",
-        "Series",
-        "X-MEN",
-        "X-Men Series"
-    ),
-
-    item(
-        "xmen-evolution",
-        "X-Men: Evolution",
-        "2000",
-        "Series",
-        "X-MEN",
-        "X-Men Series"
-    ),
-
-    item(
-        "xmen-wolverine-series",
-        "Wolverine and the X-Men",
-        "2008",
-        "Series",
-        "X-MEN",
-        "X-Men Series"
-    ),
-
-    item(
-        "xmen-anime",
-        "Marvel Anime: X-Men",
-        "2011",
-        "Series",
-        "X-MEN",
-        "X-Men Series"
-    ),
-
-    item(
-        "xmen-legion-s1",
-        "Legion (Season 1)",
-        "2017",
-        "Series",
-        "X-MEN",
-        "X-Men Series"
-    ),
-
-    item(
-        "xmen-legion-s2",
-        "Legion (Season 2)",
-        "2018",
-        "Series",
-        "X-MEN",
-        "X-Men Series"
-    ),
-
-    item(
-        "xmen-legion-s3",
-        "Legion (Season 3)",
-        "2019",
-        "Series",
-        "X-MEN",
-        "X-Men Series"
-    ),
-
-    item(
-        "xmen-gifted-s1",
-        "The Gifted (Season 1)",
-        "2017",
-        "Series",
-        "X-MEN",
-        "X-Men Series"
-    ),
-
-    item(
-        "xmen-gifted-s2",
-        "The Gifted (Season 2)",
-        "2018",
-        "Series",
-        "X-MEN",
-        "X-Men Series"
-    ),
-
-    item(
-        "xmen-97-s1",
-        "X-Men '97 (Season 1)",
-        "2024",
-        "Series",
-        "X-MEN",
-        "X-Men Series"
-    ),
-
-    item(
-        "xmen-97-s2",
-        "X-Men '97 (Season 2)",
-        "2026",
-        "Series",
-        "X-MEN",
-        "X-Men Series"
-    ),
-
-
-    /* =====================================================
-       MARVEL LEGACY TELEVISION
-       NOT PART OF CURRENT MCU COMPLETE TIMELINE
-    ===================================================== */
-
-    item(
-        "legacy-agents-shield-s1",
-        "Agents of S.H.I.E.L.D. (Season 1)",
-        "2013",
-        "Series",
-        "MARVEL LEGACY",
-        "Agents of S.H.I.E.L.D."
-    ),
-
-    item(
-        "legacy-agents-shield-s2",
-        "Agents of S.H.I.E.L.D. (Season 2)",
-        "2014",
-        "Series",
-        "MARVEL LEGACY",
-        "Agents of S.H.I.E.L.D."
-    ),
-
-    item(
-        "legacy-agents-shield-s3",
-        "Agents of S.H.I.E.L.D. (Season 3)",
-        "2015",
-        "Series",
-        "MARVEL LEGACY",
-        "Agents of S.H.I.E.L.D."
-    ),
-
-    item(
-        "legacy-agents-shield-s4",
-        "Agents of S.H.I.E.L.D. (Season 4)",
-        "2016",
-        "Series",
-        "MARVEL LEGACY",
-        "Agents of S.H.I.E.L.D."
-    ),
-
-    item(
-        "legacy-agents-shield-s5",
-        "Agents of S.H.I.E.L.D. (Season 5)",
-        "2017",
-        "Series",
-        "MARVEL LEGACY",
-        "Agents of S.H.I.E.L.D."
-    ),
-
-    item(
-        "legacy-agents-shield-s6",
-        "Agents of S.H.I.E.L.D. (Season 6)",
-        "2019",
-        "Series",
-        "MARVEL LEGACY",
-        "Agents of S.H.I.E.L.D."
-    ),
-
-    item(
-        "legacy-agents-shield-s7",
-        "Agents of S.H.I.E.L.D. (Season 7)",
-        "2020",
-        "Series",
-        "MARVEL LEGACY",
-        "Agents of S.H.I.E.L.D."
-    ),
-
-    item(
-        "legacy-agent-carter-s1",
-        "Agent Carter (Season 1)",
-        "2015",
-        "Series",
-        "MARVEL LEGACY",
-        "Agent Carter"
-    ),
-
-    item(
-        "legacy-agent-carter-s2",
-        "Agent Carter (Season 2)",
-        "2016",
-        "Series",
-        "MARVEL LEGACY",
-        "Agent Carter"
-    ),
-
-    item(
-        "legacy-inhumans",
-        "Inhumans",
-        "2017",
-        "Series",
-        "MARVEL LEGACY",
-        "Marvel Television"
-    ),
-
-    item(
-        "legacy-runaways-s1",
-        "Runaways (Season 1)",
-        "2017",
-        "Series",
-        "MARVEL LEGACY",
-        "Runaways"
-    ),
-
-    item(
-        "legacy-runaways-s2",
-        "Runaways (Season 2)",
-        "2018",
-        "Series",
-        "MARVEL LEGACY",
-        "Runaways"
-    ),
-
-    item(
-        "legacy-runaways-s3",
-        "Runaways (Season 3)",
-        "2019",
-        "Series",
-        "MARVEL LEGACY",
-        "Runaways"
-    ),
-
-    item(
-        "legacy-cloak-dagger-s1",
-        "Cloak & Dagger (Season 1)",
-        "2018",
-        "Series",
-        "MARVEL LEGACY",
-        "Cloak & Dagger"
-    ),
-
-    item(
-        "legacy-cloak-dagger-s2",
-        "Cloak & Dagger (Season 2)",
-        "2019",
-        "Series",
-        "MARVEL LEGACY",
-        "Cloak & Dagger"
-    ),
-
-
-    /* =====================================================
-       OTHER MARVEL ANIMATION
-    ===================================================== */
-
-    item(
-        "legacy-modok",
-        "M.O.D.O.K.",
-        "2021",
-        "Series",
-        "MARVEL LEGACY",
-        "Marvel Animation"
-    ),
-
-    item(
-        "legacy-hit-monkey-s1",
-        "Hit-Monkey (Season 1)",
-        "2021",
-        "Series",
-        "MARVEL LEGACY",
-        "Marvel Animation"
-    ),
-
-    item(
-        "legacy-hit-monkey-s2",
-        "Hit-Monkey (Season 2)",
-        "2024",
-        "Series",
-        "MARVEL LEGACY",
-        "Marvel Animation"
-    )
+    /* ---------- MCU — PHASE 3 ---------- */
+    item("mcu-civil-war", "Captain America: Civil War", "2016", "Movie", "MCU", "Phase 3"),
+    item("mcu-doctor-strange", "Doctor Strange", "2016", "Movie", "MCU", "Phase 3"),
+    item("mcu-guardians-2", "Guardians of the Galaxy Vol. 2", "2017", "Movie", "MCU", "Phase 3"),
+    item("mcu-spider-man-homecoming", "Spider-Man: Homecoming", "2017", "Movie", "MCU", "Phase 3"),
+    item("mcu-thor-ragnarok", "Thor: Ragnarok", "2017", "Movie", "MCU", "Phase 3"),
+    item("mcu-black-panther", "Black Panther", "2018", "Movie", "MCU", "Phase 3"),
+    item("mcu-infinity-war", "Avengers: Infinity War", "2018", "Movie", "MCU", "Phase 3"),
+    item("mcu-ant-man-wasp", "Ant-Man and the Wasp", "2018", "Movie", "MCU", "Phase 3"),
+    item("mcu-captain-marvel", "Captain Marvel", "2019", "Movie", "MCU", "Phase 3"),
+    item("mcu-endgame", "Avengers: Endgame", "2019", "Movie", "MCU", "Phase 3"),
+    item("mcu-far-from-home", "Spider-Man: Far From Home", "2019", "Movie", "MCU", "Phase 3"),
+
+    /* ---------- DEFENDERS SAGA (part of MCU Complete Timeline) ---------- */
+    item("dd-s1", "Daredevil (Season 1)", "2015", "Series", "MCU", "Defenders Saga"),
+    item("jj-s1", "Jessica Jones (Season 1)", "2015", "Series", "MCU", "Defenders Saga"),
+    item("dd-s2", "Daredevil (Season 2)", "2016", "Series", "MCU", "Defenders Saga"),
+    item("luke-s1", "Luke Cage (Season 1)", "2016", "Series", "MCU", "Defenders Saga"),
+    item("iron-fist-s1", "Iron Fist (Season 1)", "2017", "Series", "MCU", "Defenders Saga"),
+    item("defenders-s1", "The Defenders (Season 1)", "2017", "Series", "MCU", "Defenders Saga"),
+    item("punisher-s1", "The Punisher (Season 1)", "2017", "Series", "MCU", "Defenders Saga"),
+    item("jj-s2", "Jessica Jones (Season 2)", "2018", "Series", "MCU", "Defenders Saga"),
+    item("luke-s2", "Luke Cage (Season 2)", "2018", "Series", "MCU", "Defenders Saga"),
+    item("iron-fist-s2", "Iron Fist (Season 2)", "2018", "Series", "MCU", "Defenders Saga"),
+    item("dd-s3", "Daredevil (Season 3)", "2018", "Series", "MCU", "Defenders Saga"),
+    item("punisher-s2", "The Punisher (Season 2)", "2019", "Series", "MCU", "Defenders Saga"),
+    item("jj-s3", "Jessica Jones (Season 3)", "2019", "Series", "MCU", "Defenders Saga"),
+
+    /* ---------- MCU — PHASE 4 ---------- */
+    item("mcu-wandavision", "WandaVision", "2021", "Series", "MCU", "Phase 4"),
+    item("mcu-falcon-winter-soldier", "The Falcon and the Winter Soldier", "2021", "Series", "MCU", "Phase 4"),
+    item("mcu-loki-s1", "Loki (Season 1)", "2021", "Series", "MCU", "Phase 4"),
+    item("mcu-black-widow", "Black Widow", "2021", "Movie", "MCU", "Phase 4"),
+    item("mcu-what-if-s1", "What If...? (Season 1)", "2021", "Series", "MCU", "Phase 4"),
+    item("mcu-shang-chi", "Shang-Chi and the Legend of the Ten Rings", "2021", "Movie", "MCU", "Phase 4"),
+    item("mcu-eternals", "Eternals", "2021", "Movie", "MCU", "Phase 4"),
+    item("mcu-hawkeye", "Hawkeye", "2021", "Series", "MCU", "Phase 4"),
+    item("mcu-no-way-home", "Spider-Man: No Way Home", "2021", "Movie", "MCU", "Phase 4"),
+    item("mcu-moon-knight", "Moon Knight", "2022", "Series", "MCU", "Phase 4"),
+    item("mcu-doctor-strange-2", "Doctor Strange in the Multiverse of Madness", "2022", "Movie", "MCU", "Phase 4"),
+    item("mcu-ms-marvel", "Ms. Marvel", "2022", "Series", "MCU", "Phase 4"),
+    item("mcu-thor-love-thunder", "Thor: Love and Thunder", "2022", "Movie", "MCU", "Phase 4"),
+    item("mcu-i-am-groot-s1", "I Am Groot (Season 1)", "2022", "Series", "MCU", "Phase 4"),
+    item("mcu-she-hulk", "She-Hulk: Attorney at Law", "2022", "Series", "MCU", "Phase 4"),
+    item("mcu-werewolf", "Werewolf by Night", "2022", "Special", "MCU", "Phase 4"),
+    item("mcu-wakanda-forever", "Black Panther: Wakanda Forever", "2022", "Movie", "MCU", "Phase 4"),
+    item("mcu-guardians-holiday", "The Guardians of the Galaxy Holiday Special", "2022", "Special", "MCU", "Phase 4"),
+
+    /* ---------- MCU — PHASE 5 ---------- */
+    item("mcu-quantumania", "Ant-Man and the Wasp: Quantumania", "2023", "Movie", "MCU", "Phase 5"),
+    item("mcu-guardians-3", "Guardians of the Galaxy Vol. 3", "2023", "Movie", "MCU", "Phase 5"),
+    item("mcu-secret-invasion", "Secret Invasion", "2023", "Series", "MCU", "Phase 5"),
+    item("mcu-i-am-groot-s2", "I Am Groot (Season 2)", "2023", "Series", "MCU", "Phase 5"),
+    item("mcu-loki-s2", "Loki (Season 2)", "2023", "Series", "MCU", "Phase 5"),
+    item("mcu-marvels", "The Marvels", "2023", "Movie", "MCU", "Phase 5"),
+    item("mcu-what-if-s2", "What If...? (Season 2)", "2023", "Series", "MCU", "Phase 5"),
+    item("mcu-echo", "Echo", "2024", "Series", "MCU", "Phase 5"),
+    item("mcu-deadpool-wolverine", "Deadpool & Wolverine", "2024", "Movie", "MCU", "Phase 5"),
+    item("mcu-agatha", "Agatha All Along", "2024", "Series", "MCU", "Phase 5"),
+    item("mcu-what-if-s3", "What If...? (Season 3)", "2024", "Series", "MCU", "Phase 5"),
+    item("mcu-friendly-neighborhood-s1", "Your Friendly Neighborhood Spider-Man (Season 1)", "2025", "Series", "MCU", "Phase 5"),
+    item("mcu-brave-new-world", "Captain America: Brave New World", "2025", "Movie", "MCU", "Phase 5"),
+    item("mcu-born-again-s1", "Daredevil: Born Again (Season 1)", "2025", "Series", "MCU", "Phase 5"),
+    item("mcu-thunderbolts", "Thunderbolts*", "2025", "Movie", "MCU", "Phase 5"),
+    item("mcu-ironheart", "Ironheart", "2025", "Series", "MCU", "Phase 5"),
+
+    /* ---------- MCU — PHASE 6 ---------- */
+    item("mcu-fantastic-four", "The Fantastic Four: First Steps", "2025", "Movie", "MCU", "Phase 6"),
+    item("mcu-eyes-wakanda", "Eyes of Wakanda", "2025", "Series", "MCU", "Phase 6"),
+    item("mcu-marvel-zombies", "Marvel Zombies", "2025", "Series", "MCU", "Phase 6"),
+    item("mcu-wonder-man", "Wonder Man (Season 1)", "2026", "Series", "MCU", "Phase 6"),
+    item("mcu-born-again-s2", "Daredevil: Born Again (Season 2)", "2026", "Series", "MCU", "Phase 6"),
+    item("mcu-punisher-one-last-kill", "The Punisher: One Last Kill", "2026", "Special", "MCU", "Phase 6"),
+    item("mcu-brand-new-day", "Spider-Man: Brand New Day", "2026", "Movie", "MCU", "Phase 6"),
+
+    /* ---------- MCU — PHASE 6 (UPCOMING) ---------- */
+    item("mcu-visionquest", "VisionQuest", "2026", "Series", "MCU", "Phase 6 — Upcoming", { upcoming: true }),
+    item("mcu-doomsday", "Avengers: Doomsday", "2026", "Movie", "MCU", "Phase 6 — Upcoming", { upcoming: true }),
+    item("mcu-friendly-neighborhood-s2", "Your Friendly Neighborhood Spider-Man (Season 2)", "2027", "Series", "MCU", "Phase 6 — Upcoming", { upcoming: true }),
+    item("mcu-secret-wars", "Avengers: Secret Wars", "2027", "Movie", "MCU", "Phase 6 — Upcoming", { upcoming: true }),
+
+    /* ---------- SPIDER-MAN — NON-MCU ---------- */
+    item("spider-tobey-1", "Spider-Man", "2002", "Movie", "SPIDER-MAN", "Tobey Maguire"),
+    item("spider-tobey-2", "Spider-Man 2", "2004", "Movie", "SPIDER-MAN", "Tobey Maguire"),
+    item("spider-tobey-3", "Spider-Man 3", "2007", "Movie", "SPIDER-MAN", "Tobey Maguire"),
+    item("spider-andrew-1", "The Amazing Spider-Man", "2012", "Movie", "SPIDER-MAN", "Andrew Garfield"),
+    item("spider-andrew-2", "The Amazing Spider-Man 2", "2014", "Movie", "SPIDER-MAN", "Andrew Garfield"),
+    item("spider-into-verse", "Spider-Man: Into the Spider-Verse", "2018", "Movie", "SPIDER-MAN", "Spider-Verse"),
+    item("spider-across-verse", "Spider-Man: Across the Spider-Verse", "2023", "Movie", "SPIDER-MAN", "Spider-Verse"),
+    item("spider-beyond-verse", "Spider-Man: Beyond the Spider-Verse", "2027", "Movie", "SPIDER-MAN", "Spider-Verse — Upcoming", { upcoming: true }),
+
+    /* ---------- SONY SPIDER-MAN UNIVERSE ---------- */
+    item("sony-venom", "Venom", "2018", "Movie", "SONY", "Sony Spider-Man Universe"),
+    item("sony-venom-2", "Venom: Let There Be Carnage", "2021", "Movie", "SONY", "Sony Spider-Man Universe"),
+    item("sony-morbius", "Morbius", "2022", "Movie", "SONY", "Sony Spider-Man Universe"),
+    item("sony-madame-web", "Madame Web", "2024", "Movie", "SONY", "Sony Spider-Man Universe"),
+    item("sony-kraven", "Kraven the Hunter", "2024", "Movie", "SONY", "Sony Spider-Man Universe"),
+    item("sony-venom-3", "Venom: The Last Dance", "2024", "Movie", "SONY", "Sony Spider-Man Universe"),
+
+    /* ---------- X-MEN — LIVE ACTION ---------- */
+    item("xmen-1", "X-Men", "2000", "Movie", "X-MEN", "X-Men Movies"),
+    item("xmen-2", "X2: X-Men United", "2003", "Movie", "X-MEN", "X-Men Movies"),
+    item("xmen-3", "X-Men: The Last Stand", "2006", "Movie", "X-MEN", "X-Men Movies"),
+    item("xmen-wolverine-origins", "X-Men Origins: Wolverine", "2009", "Movie", "X-MEN", "X-Men Movies"),
+    item("xmen-first-class", "X-Men: First Class", "2011", "Movie", "X-MEN", "X-Men Movies"),
+    item("xmen-wolverine", "The Wolverine", "2013", "Movie", "X-MEN", "X-Men Movies"),
+    item("xmen-days-future-past", "X-Men: Days of Future Past", "2014", "Movie", "X-MEN", "X-Men Movies"),
+    item("xmen-deadpool", "Deadpool", "2016", "Movie", "X-MEN", "X-Men Movies"),
+    item("xmen-apocalypse", "X-Men: Apocalypse", "2016", "Movie", "X-MEN", "X-Men Movies"),
+    item("xmen-logan", "Logan", "2017", "Movie", "X-MEN", "X-Men Movies"),
+    item("xmen-deadpool-2", "Deadpool 2", "2018", "Movie", "X-MEN", "X-Men Movies"),
+    item("xmen-dark-phoenix", "Dark Phoenix", "2019", "Movie", "X-MEN", "X-Men Movies"),
+    item("xmen-new-mutants", "The New Mutants", "2020", "Movie", "X-MEN", "X-Men Movies"),
+
+    /* ---------- X-MEN / MARVEL ANIMATION ---------- */
+    item("xmen-animated-series", "X-Men: The Animated Series", "1992", "Series", "X-MEN", "X-Men Series"),
+    item("xmen-evolution", "X-Men: Evolution", "2000", "Series", "X-MEN", "X-Men Series"),
+    item("xmen-wolverine-series", "Wolverine and the X-Men", "2008", "Series", "X-MEN", "X-Men Series"),
+    item("xmen-anime", "Marvel Anime: X-Men", "2011", "Series", "X-MEN", "X-Men Series"),
+    item("xmen-legion-s1", "Legion (Season 1)", "2017", "Series", "X-MEN", "X-Men Series"),
+    item("xmen-legion-s2", "Legion (Season 2)", "2018", "Series", "X-MEN", "X-Men Series"),
+    item("xmen-legion-s3", "Legion (Season 3)", "2019", "Series", "X-MEN", "X-Men Series"),
+    item("xmen-gifted-s1", "The Gifted (Season 1)", "2017", "Series", "X-MEN", "X-Men Series"),
+    item("xmen-gifted-s2", "The Gifted (Season 2)", "2018", "Series", "X-MEN", "X-Men Series"),
+    item("xmen-97-s1", "X-Men '97 (Season 1)", "2024", "Series", "X-MEN", "X-Men Series"),
+    item("xmen-97-s2", "X-Men '97 (Season 2)", "2026", "Series", "X-MEN", "X-Men Series"),
+
+    /* ---------- MARVEL LEGACY TELEVISION ---------- */
+    item("legacy-agents-shield-s1", "Agents of S.H.I.E.L.D. (Season 1)", "2013", "Series", "MARVEL LEGACY", "Agents of S.H.I.E.L.D."),
+    item("legacy-agents-shield-s2", "Agents of S.H.I.E.L.D. (Season 2)", "2014", "Series", "MARVEL LEGACY", "Agents of S.H.I.E.L.D."),
+    item("legacy-agents-shield-s3", "Agents of S.H.I.E.L.D. (Season 3)", "2015", "Series", "MARVEL LEGACY", "Agents of S.H.I.E.L.D."),
+    item("legacy-agents-shield-s4", "Agents of S.H.I.E.L.D. (Season 4)", "2016", "Series", "MARVEL LEGACY", "Agents of S.H.I.E.L.D."),
+    item("legacy-agents-shield-s5", "Agents of S.H.I.E.L.D. (Season 5)", "2017", "Series", "MARVEL LEGACY", "Agents of S.H.I.E.L.D."),
+    item("legacy-agents-shield-s6", "Agents of S.H.I.E.L.D. (Season 6)", "2019", "Series", "MARVEL LEGACY", "Agents of S.H.I.E.L.D."),
+    item("legacy-agents-shield-s7", "Agents of S.H.I.E.L.D. (Season 7)", "2020", "Series", "MARVEL LEGACY", "Agents of S.H.I.E.L.D."),
+    item("legacy-agent-carter-s1", "Agent Carter (Season 1)", "2015", "Series", "MARVEL LEGACY", "Agent Carter"),
+    item("legacy-agent-carter-s2", "Agent Carter (Season 2)", "2016", "Series", "MARVEL LEGACY", "Agent Carter"),
+    item("legacy-inhumans", "Inhumans", "2017", "Series", "MARVEL LEGACY", "Marvel Television"),
+    item("legacy-runaways-s1", "Runaways (Season 1)", "2017", "Series", "MARVEL LEGACY", "Runaways"),
+    item("legacy-runaways-s2", "Runaways (Season 2)", "2018", "Series", "MARVEL LEGACY", "Runaways"),
+    item("legacy-runaways-s3", "Runaways (Season 3)", "2019", "Series", "MARVEL LEGACY", "Runaways"),
+    item("legacy-cloak-dagger-s1", "Cloak & Dagger (Season 1)", "2018", "Series", "MARVEL LEGACY", "Cloak & Dagger"),
+    item("legacy-cloak-dagger-s2", "Cloak & Dagger (Season 2)", "2019", "Series", "MARVEL LEGACY", "Cloak & Dagger"),
+
+    /* ---------- OTHER MARVEL ANIMATION ---------- */
+    item("legacy-modok", "M.O.D.O.K.", "2021", "Series", "MARVEL LEGACY", "Marvel Animation"),
+    item("legacy-hit-monkey-s1", "Hit-Monkey (Season 1)", "2021", "Series", "MARVEL LEGACY", "Marvel Animation"),
+    item("legacy-hit-monkey-s2", "Hit-Monkey (Season 2)", "2024", "Series", "MARVEL LEGACY", "Marvel Animation")
 
 ];
 
+/* =========================================================
+   STORAGE (plain localStorage)
+========================================================= */
+
+const STORAGE_KEY = "marvel-watched-ids";
+
+function loadWatchedIds() {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+            return new Set();
+        }
+        const parsed = JSON.parse(raw);
+        return new Set(Array.isArray(parsed) ? parsed : []);
+    } catch (error) {
+        console.warn("Could not load watch progress:", error);
+        return new Set();
+    }
+}
+
+function saveWatchedIds(watchedIds) {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(watchedIds)));
+        return true;
+    } catch (error) {
+        console.warn("Could not save watch progress:", error);
+        return false;
+    }
+}
 
 /* =========================================================
    DOM REFERENCES
-   (These were missing entirely before — the script
-   referenced `container`, `progressText`, and
-   `progressBar` without ever grabbing them from the page,
-   which threw an error immediately and stopped the whole
-   tracker from rendering.)
 ========================================================= */
 
 const container = document.getElementById("list-container");
@@ -1735,357 +507,146 @@ const progressText = document.getElementById("progress-text");
 const progressBar = document.getElementById("progress-bar");
 const statusNote = document.getElementById("status-note");
 
-
-/* =========================================================
-   STORAGE
-
-   Uses the artifact's persistent key-value storage
-   (window.storage) instead of localStorage, which is
-   blocked inside Claude artifacts. Data is personal
-   (not shared) and keyed by each item's permanent id, so
-   it stays stable even if items are reordered later.
-========================================================= */
-
-const WATCHED_KEY = "watched-ids";
-
-let watchedIds = new Set();
-let storageAvailable = true;
-
-async function loadWatchedIds() {
-    try {
-        const result = await window.storage.get(WATCHED_KEY, false);
-        if (!result || typeof result.value !== "string") {
-            return new Set();
-        }
-        const parsed = JSON.parse(result.value);
-        return new Set(Array.isArray(parsed) ? parsed : []);
-    } catch (error) {
-        /* Key doesn't exist yet on a first-ever visit, or storage
-           is unavailable. Either way, start with nothing checked. */
-        return new Set();
-    }
-}
-
-async function saveWatchedIds() {
-    try {
-        const result = await window.storage.set(
-            WATCHED_KEY,
-            JSON.stringify(Array.from(watchedIds)),
-            false
-        );
-        if (!result) {
-            throw new Error("Storage write returned no result");
-        }
-        storageAvailable = true;
-    } catch (error) {
-        console.warn("Could not save watch progress:", error);
-        storageAvailable = false;
-    }
-    renderStatusNote();
-}
-
+let watchedIds = loadWatchedIds();
 
 /* =========================================================
    BADGE CLASS
 ========================================================= */
 
-function getBadgeClass(itemObj) {
-
-    if (itemObj.upcoming) {
+function getBadgeClass(entry) {
+    if (entry.upcoming) {
         return "badge-upcoming";
     }
-
-    if (itemObj.type === "Movie") {
+    if (entry.type === "Movie") {
         return "badge-movie";
     }
-
-    if (itemObj.type === "Series") {
-
-        if (
-            itemObj.section === "X-MEN" ||
-            itemObj.section === "MARVEL LEGACY"
-        ) {
+    if (entry.type === "Series") {
+        if (entry.section === "X-MEN" || entry.section === "MARVEL LEGACY") {
             return "badge-legacy";
         }
-
         return "badge-series";
     }
-
-    if (itemObj.type === "Special") {
+    if (entry.type === "Special") {
         return "badge-special";
     }
-
     return "badge-animation";
 }
-
 
 /* =========================================================
    RENDER LIST
 ========================================================= */
 
 function renderList() {
-
     container.innerHTML = "";
 
     let currentSection = "";
     let currentPhase = "";
 
+    const sectionNames = {
+        "MCU": "Marvel Cinematic Universe",
+        "SPIDER-MAN": "Spider-Man",
+        "SONY": "Sony Spider-Man Universe",
+        "X-MEN": "X-Men & Marvel Legacy",
+        "MARVEL LEGACY": "Marvel Legacy & Other Marvel"
+    };
 
-    marvelData.forEach((itemObj) => {
+    marvelData.forEach(function (entry) {
 
-        /* -------------------------------------------------
-           SECTION HEADER
-        ------------------------------------------------- */
-
-        if (itemObj.section !== currentSection) {
-
-            currentSection = itemObj.section;
+        if (entry.section !== currentSection) {
+            currentSection = entry.section;
             currentPhase = "";
 
-            const section =
-                document.createElement("div");
-
-            section.className =
-                "section-divider";
-
-
-            const sectionNames = {
-
-                "MCU":
-                    "Marvel Cinematic Universe",
-
-                "SPIDER-MAN":
-                    "Spider-Man",
-
-                "SONY":
-                    "Sony Spider-Man Universe",
-
-                "X-MEN":
-                    "X-Men & Marvel Legacy",
-
-                "MARVEL LEGACY":
-                    "Marvel Legacy & Other Marvel"
-            };
-
-
-            section.textContent =
-                sectionNames[itemObj.section] ||
-                itemObj.section;
-
-
+            const section = document.createElement("div");
+            section.className = "section-divider";
+            section.textContent = sectionNames[entry.section] || entry.section;
             container.appendChild(section);
         }
 
+        if (entry.phase !== currentPhase) {
+            currentPhase = entry.phase;
 
-        /* -------------------------------------------------
-           PHASE HEADER
-        ------------------------------------------------- */
-
-        if (itemObj.phase !== currentPhase) {
-
-            currentPhase = itemObj.phase;
-
-            const divider =
-                document.createElement("div");
-
-            divider.className =
-                "phase-divider";
-
-            divider.textContent =
-                itemObj.phase;
-
+            const divider = document.createElement("div");
+            divider.className = "phase-divider";
+            divider.textContent = entry.phase;
             container.appendChild(divider);
         }
 
+        const card = document.createElement("div");
+        card.className = "item-card";
+        card.id = "marvel-" + entry.id;
 
-        /* -------------------------------------------------
-           CARD
-        ------------------------------------------------- */
-
-        const card =
-            document.createElement("div");
-
-        card.className =
-            "item-card";
-
-        card.id =
-            `marvel-${itemObj.id}`;
-
-
-        /* -------------------------------------------------
-           UPCOMING
-        ------------------------------------------------- */
-
-        if (itemObj.upcoming) {
-
-            card.classList.add(
-                "upcoming-card"
-            );
-
-        } else if (watchedIds.has(itemObj.id)) {
-
-            card.classList.add(
-                "watched"
-            );
+        if (entry.upcoming) {
+            card.classList.add("upcoming-card");
+        } else if (watchedIds.has(entry.id)) {
+            card.classList.add("watched");
         }
 
+        const badgeClass = getBadgeClass(entry);
+        const badgeText = entry.upcoming ? "Upcoming" : entry.type;
 
-        /* -------------------------------------------------
-           BADGE
-        ------------------------------------------------- */
+        card.innerHTML =
+            '<div class="item-left">' +
+                '<div class="checkbox-custom"></div>' +
+                '<div class="info-block">' +
+                    '<span class="title">' + entry.title + '</span>' +
+                    '<div class="meta">' +
+                        '<span>' + entry.year + '</span>' +
+                        '<span class="badge ' + badgeClass + '">' + badgeText + '</span>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
 
-        const badgeClass =
-            getBadgeClass(itemObj);
+        if (!entry.upcoming) {
+            card.addEventListener("click", function () {
+                const willBeWatched = !card.classList.contains("watched");
+                card.classList.toggle("watched", willBeWatched);
 
-
-        const badgeText =
-            itemObj.upcoming
-                ? "Upcoming"
-                : itemObj.type;
-
-
-        /* -------------------------------------------------
-           CARD HTML
-        ------------------------------------------------- */
-
-        card.innerHTML = `
-            <div class="item-left">
-
-                <div class="checkbox-custom"></div>
-
-                <div class="info-block">
-
-                    <span class="title">
-                        ${itemObj.title}
-                    </span>
-
-                    <div class="meta">
-
-                        <span>
-                            ${itemObj.year}
-                        </span>
-
-                        <span class="badge ${badgeClass}">
-                            ${badgeText}
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-        `;
-
-
-        /* -------------------------------------------------
-           CLICK
-        ------------------------------------------------- */
-
-        if (!itemObj.upcoming) {
-
-            card.addEventListener(
-                "click",
-                async () => {
-
-                    const willBeWatched =
-                        !card.classList.contains("watched");
-
-                    card.classList.toggle(
-                        "watched",
-                        willBeWatched
-                    );
-
-                    if (willBeWatched) {
-                        watchedIds.add(itemObj.id);
-                    } else {
-                        watchedIds.delete(itemObj.id);
-                    }
-
-                    updateProgress();
-
-                    await saveWatchedIds();
+                if (willBeWatched) {
+                    watchedIds.add(entry.id);
+                } else {
+                    watchedIds.delete(entry.id);
                 }
-            );
-        }
 
+                updateProgress();
+
+                const ok = saveWatchedIds(watchedIds);
+                statusNote.textContent = ok
+                    ? ""
+                    : "Your browser blocked saving progress (private/incognito mode can do this) — checks won't persist after a refresh.";
+            });
+        }
 
         container.appendChild(card);
     });
 }
 
-
 /* =========================================================
    PROGRESS
-
-   Upcoming items are NOT counted.
-
-   This means:
-       "0 / 100"
-   does not become:
-       "0 / 105"
-   because a handful of future projects exist.
 ========================================================= */
 
 function updateProgress() {
+    const watchableItems = marvelData.filter(function (entry) {
+        return !entry.upcoming;
+    });
 
-    const watchableItems =
-        marvelData.filter(
-            itemObj => !itemObj.upcoming
-        );
+    const total = watchableItems.length;
 
-    const total =
-        watchableItems.length;
+    const watchedCount = watchableItems.filter(function (entry) {
+        return watchedIds.has(entry.id);
+    }).length;
 
+    const percentage = total > 0 ? Math.round((watchedCount / total) * 100) : 0;
 
-    const watched =
-        watchableItems.filter(
-            itemObj => watchedIds.has(itemObj.id)
-        ).length;
-
-
-    const percentage =
-        total > 0
-            ? Math.round(
-                (watched / total) * 100
-            )
-            : 0;
-
-
-    progressText.textContent =
-        `${watched} / ${total} (${percentage}%)`;
-
-
-    progressBar.style.width =
-        `${percentage}%`;
+    progressText.textContent = watchedCount + " / " + total + " (" + percentage + "%)";
+    progressBar.style.width = percentage + "%";
 }
-
-
-/* =========================================================
-   STATUS NOTE
-========================================================= */
-
-function renderStatusNote() {
-    if (!storageAvailable) {
-        statusNote.textContent =
-            "Progress couldn't be saved right now — your checks may not persist after a refresh.";
-    } else {
-        statusNote.textContent = "";
-    }
-}
-
 
 /* =========================================================
    START APP
 ========================================================= */
 
-async function init() {
-    watchedIds = await loadWatchedIds();
-    renderList();
-    updateProgress();
-    renderStatusNote();
-}
-
-init();
+renderList();
+updateProgress();
 
 </script>
 
