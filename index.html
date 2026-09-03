@@ -6,10 +6,7 @@
 
     <title>Marvel Marathon Tracker</title>
 
-    <!-- Browser Icon -->
     <link rel="icon" type="image/png" href="icon.png">
-
-    <!-- iPhone / iPad Home Screen Icon -->
     <link rel="apple-touch-icon" href="icon.png">
 
     <style>
@@ -20,6 +17,7 @@
             --accent-color: #e50914;
             --secondary-text: #b3b3b3;
             --success-color: #2e7d32;
+            --upcoming-color: #555;
         }
 
         * {
@@ -54,7 +52,7 @@
             margin-bottom: 20px;
 
             width: 100%;
-            max-width: 500px;
+            max-width: 550px;
         }
 
         h1 {
@@ -119,7 +117,7 @@
 
         .list-container {
             width: 100%;
-            max-width: 500px;
+            max-width: 550px;
 
             display: flex;
             flex-direction: column;
@@ -133,7 +131,7 @@
 
             color: var(--accent-color);
 
-            margin: 20px 0 5px 5px;
+            margin: 25px 0 5px 5px;
 
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -263,6 +261,8 @@
             display: flex;
             align-items: center;
 
+            flex-wrap: wrap;
+
             gap: 7px;
 
             font-size: 12px;
@@ -301,9 +301,28 @@
             color: white;
         }
 
-        .badge-xmen {
-            background-color: #1976d2;
+        .badge-animation {
+            background-color: #00897b;
             color: white;
+        }
+
+        .badge-legacy {
+            background-color: #616161;
+            color: white;
+        }
+
+        .badge-upcoming {
+            background-color: #424242;
+            color: #ddd;
+        }
+
+        .upcoming-card {
+            opacity: 0.75;
+            cursor: default;
+        }
+
+        .upcoming-card:hover {
+            background-color: var(--card-bg);
         }
 
         @media (max-width: 500px) {
@@ -368,737 +387,1500 @@
 <script>
 
 /* =========================================================
-   MARVEL WATCHLIST
-   MCU + X-MEN / MARVEL LEGACY
+   MARVEL MARATHON
+   FINAL VERSION
+   Current through September 3, 2026
+
+   ORDER:
+   - First-time-friendly release/story order
+   - Series seasons are kept together
+   - MCU is the main marathon
+   - Non-MCU Marvel is separated
+   - Upcoming projects are listed but cannot be marked watched
+
+   STORAGE:
+   - New permanent IDs
+   - Automatic migration from the ORIGINAL index-based tracker
+========================================================= */
+
+
+/* =========================================================
+   DATA HELPER
+========================================================= */
+
+function item(
+    id,
+    title,
+    year,
+    type,
+    section,
+    phase,
+    options = {}
+) {
+    return {
+        id,
+        title,
+        year,
+        type,
+        section,
+        phase,
+        upcoming: options.upcoming || false
+    };
+}
+
+
+/* =========================================================
+   MCU
+   RELEASE / FIRST-WATCH ORDER
+
+   Marvel's current Complete MCU Timeline includes the
+   Defenders Saga seasons.
+
+   We keep each entire season together because that is
+   the user's preferred viewing method.
 ========================================================= */
 
 const marvelData = [
 
     /* =====================================================
-       MCU PHASE 1
+       MCU — PHASE 1
     ===================================================== */
 
-    {
-        title: "Iron Man",
-        year: "2008",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 1"
-    },
-    {
-        title: "The Incredible Hulk",
-        year: "2008",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 1"
-    },
-    {
-        title: "Iron Man 2",
-        year: "2010",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 1"
-    },
-    {
-        title: "Thor",
-        year: "2011",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 1"
-    },
-    {
-        title: "Captain America: The First Avenger",
-        year: "2011",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 1"
-    },
-    {
-        title: "The Avengers",
-        year: "2012",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 1"
-    },
+    item("mcu-iron-man", "Iron Man", "2008", "Movie", "MCU", "Phase 1"),
+
+    item("mcu-incredible-hulk", "The Incredible Hulk", "2008", "Movie", "MCU", "Phase 1"),
+
+    item("mcu-iron-man-2", "Iron Man 2", "2010", "Movie", "MCU", "Phase 1"),
+
+    item("mcu-thor", "Thor", "2011", "Movie", "MCU", "Phase 1"),
+
+    item(
+        "mcu-captain-america-first-avenger",
+        "Captain America: The First Avenger",
+        "2011",
+        "Movie",
+        "MCU",
+        "Phase 1"
+    ),
+
+    item("mcu-avengers", "The Avengers", "2012", "Movie", "MCU", "Phase 1"),
 
 
     /* =====================================================
-       MCU PHASE 2
+       MCU — PHASE 2
     ===================================================== */
 
-    {
-        title: "Iron Man 3",
-        year: "2013",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 2"
-    },
-    {
-        title: "Thor: The Dark World",
-        year: "2013",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 2"
-    },
-    {
-        title: "Captain America: The Winter Soldier",
-        year: "2014",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 2"
-    },
-    {
-        title: "Guardians of the Galaxy",
-        year: "2014",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 2"
-    },
-    {
-        title: "Avengers: Age of Ultron",
-        year: "2015",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 2"
-    },
-    {
-        title: "Ant-Man",
-        year: "2015",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 2"
-    },
+    item("mcu-iron-man-3", "Iron Man 3", "2013", "Movie", "MCU", "Phase 2"),
+
+    item(
+        "mcu-thor-dark-world",
+        "Thor: The Dark World",
+        "2013",
+        "Movie",
+        "MCU",
+        "Phase 2"
+    ),
+
+    item(
+        "mcu-winter-soldier",
+        "Captain America: The Winter Soldier",
+        "2014",
+        "Movie",
+        "MCU",
+        "Phase 2"
+    ),
+
+    item(
+        "mcu-guardians-1",
+        "Guardians of the Galaxy",
+        "2014",
+        "Movie",
+        "MCU",
+        "Phase 2"
+    ),
+
+    item(
+        "mcu-age-of-ultron",
+        "Avengers: Age of Ultron",
+        "2015",
+        "Movie",
+        "MCU",
+        "Phase 2"
+    ),
+
+    item("mcu-ant-man", "Ant-Man", "2015", "Movie", "MCU", "Phase 2"),
 
 
     /* =====================================================
-       MCU PHASE 3
+       MCU — PHASE 3
     ===================================================== */
 
-    {
-        title: "Captain America: Civil War",
-        year: "2016",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 3"
-    },
-    {
-        title: "Doctor Strange",
-        year: "2016",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 3"
-    },
-    {
-        title: "Guardians of the Galaxy Vol. 2",
-        year: "2017",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 3"
-    },
-    {
-        title: "Spider-Man: Homecoming",
-        year: "2017",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 3"
-    },
-    {
-        title: "Thor: Ragnarok",
-        year: "2017",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 3"
-    },
-    {
-        title: "Black Panther",
-        year: "2018",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 3"
-    },
-    {
-        title: "Avengers: Infinity War",
-        year: "2018",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 3"
-    },
-    {
-        title: "Ant-Man and the Wasp",
-        year: "2018",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 3"
-    },
-    {
-        title: "Captain Marvel",
-        year: "2019",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 3"
-    },
-    {
-        title: "Avengers: Endgame",
-        year: "2019",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 3"
-    },
-    {
-        title: "Spider-Man: Far From Home",
-        year: "2019",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 3"
-    },
+    item(
+        "mcu-civil-war",
+        "Captain America: Civil War",
+        "2016",
+        "Movie",
+        "MCU",
+        "Phase 3"
+    ),
+
+    item(
+        "mcu-doctor-strange",
+        "Doctor Strange",
+        "2016",
+        "Movie",
+        "MCU",
+        "Phase 3"
+    ),
+
+    item(
+        "mcu-guardians-2",
+        "Guardians of the Galaxy Vol. 2",
+        "2017",
+        "Movie",
+        "MCU",
+        "Phase 3"
+    ),
+
+    item(
+        "mcu-spider-man-homecoming",
+        "Spider-Man: Homecoming",
+        "2017",
+        "Movie",
+        "MCU",
+        "Phase 3"
+    ),
+
+    item(
+        "mcu-thor-ragnarok",
+        "Thor: Ragnarok",
+        "2017",
+        "Movie",
+        "MCU",
+        "Phase 3"
+    ),
+
+    item(
+        "mcu-black-panther",
+        "Black Panther",
+        "2018",
+        "Movie",
+        "MCU",
+        "Phase 3"
+    ),
+
+    item(
+        "mcu-infinity-war",
+        "Avengers: Infinity War",
+        "2018",
+        "Movie",
+        "MCU",
+        "Phase 3"
+    ),
+
+    item(
+        "mcu-ant-man-wasp",
+        "Ant-Man and the Wasp",
+        "2018",
+        "Movie",
+        "MCU",
+        "Phase 3"
+    ),
+
+    item(
+        "mcu-captain-marvel",
+        "Captain Marvel",
+        "2019",
+        "Movie",
+        "MCU",
+        "Phase 3"
+    ),
+
+    item(
+        "mcu-endgame",
+        "Avengers: Endgame",
+        "2019",
+        "Movie",
+        "MCU",
+        "Phase 3"
+    ),
+
+    item(
+        "mcu-far-from-home",
+        "Spider-Man: Far From Home",
+        "2019",
+        "Movie",
+        "MCU",
+        "Phase 3"
+    ),
 
 
     /* =====================================================
-       MCU PHASE 4
+       DEFENDERS SAGA
+       PART OF CURRENT MCU COMPLETE TIMELINE
     ===================================================== */
 
-    {
-        title: "WandaVision",
-        year: "2021",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 4"
-    },
-    {
-        title: "The Falcon and the Winter Soldier",
-        year: "2021",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 4"
-    },
-    {
-        title: "Loki (Season 1)",
-        year: "2021",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 4"
-    },
-    {
-        title: "Black Widow",
-        year: "2021",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 4"
-    },
-    {
-        title: "What If...? (Season 1)",
-        year: "2021",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 4"
-    },
-    {
-        title: "Shang-Chi and the Legend of the Ten Rings",
-        year: "2021",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 4"
-    },
-    {
-        title: "Eternals",
-        year: "2021",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 4"
-    },
-    {
-        title: "Hawkeye",
-        year: "2021",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 4"
-    },
-    {
-        title: "Spider-Man: No Way Home",
-        year: "2021",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 4"
-    },
-    {
-        title: "Moon Knight",
-        year: "2022",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 4"
-    },
-    {
-        title: "Doctor Strange in the Multiverse of Madness",
-        year: "2022",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 4"
-    },
-    {
-        title: "Ms. Marvel",
-        year: "2022",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 4"
-    },
-    {
-        title: "Thor: Love and Thunder",
-        year: "2022",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 4"
-    },
-    {
-        title: "I Am Groot (Season 1)",
-        year: "2022",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 4"
-    },
-    {
-        title: "She-Hulk: Attorney at Law",
-        year: "2022",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 4"
-    },
-    {
-        title: "Werewolf by Night",
-        year: "2022",
-        type: "Special",
-        section: "MCU",
-        phase: "Phase 4"
-    },
-    {
-        title: "Black Panther: Wakanda Forever",
-        year: "2022",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 4"
-    },
-    {
-        title: "The Guardians of the Galaxy Holiday Special",
-        year: "2022",
-        type: "Special",
-        section: "MCU",
-        phase: "Phase 4"
-    },
+    item(
+        "dd-s1",
+        "Daredevil (Season 1)",
+        "2015",
+        "Series",
+        "MCU",
+        "Defenders Saga"
+    ),
+
+    item(
+        "jj-s1",
+        "Jessica Jones (Season 1)",
+        "2015",
+        "Series",
+        "MCU",
+        "Defenders Saga"
+    ),
+
+    item(
+        "dd-s2",
+        "Daredevil (Season 2)",
+        "2016",
+        "Series",
+        "MCU",
+        "Defenders Saga"
+    ),
+
+    item(
+        "luke-s1",
+        "Luke Cage (Season 1)",
+        "2016",
+        "Series",
+        "MCU",
+        "Defenders Saga"
+    ),
+
+    item(
+        "iron-fist-s1",
+        "Iron Fist (Season 1)",
+        "2017",
+        "Series",
+        "MCU",
+        "Defenders Saga"
+    ),
+
+    item(
+        "defenders-s1",
+        "The Defenders (Season 1)",
+        "2017",
+        "Series",
+        "MCU",
+        "Defenders Saga"
+    ),
+
+    item(
+        "punisher-s1",
+        "The Punisher (Season 1)",
+        "2017",
+        "Series",
+        "MCU",
+        "Defenders Saga"
+    ),
+
+    item(
+        "jj-s2",
+        "Jessica Jones (Season 2)",
+        "2018",
+        "Series",
+        "MCU",
+        "Defenders Saga"
+    ),
+
+    item(
+        "luke-s2",
+        "Luke Cage (Season 2)",
+        "2018",
+        "Series",
+        "MCU",
+        "Defenders Saga"
+    ),
+
+    item(
+        "iron-fist-s2",
+        "Iron Fist (Season 2)",
+        "2018",
+        "Series",
+        "MCU",
+        "Defenders Saga"
+    ),
+
+    item(
+        "dd-s3",
+        "Daredevil (Season 3)",
+        "2018",
+        "Series",
+        "MCU",
+        "Defenders Saga"
+    ),
+
+    item(
+        "punisher-s2",
+        "The Punisher (Season 2)",
+        "2019",
+        "Series",
+        "MCU",
+        "Defenders Saga"
+    ),
+
+    item(
+        "jj-s3",
+        "Jessica Jones (Season 3)",
+        "2019",
+        "Series",
+        "MCU",
+        "Defenders Saga"
+    ),
 
 
     /* =====================================================
-       MCU PHASE 5
+       MCU — PHASE 4
     ===================================================== */
 
-    {
-        title: "Ant-Man and the Wasp: Quantumania",
-        year: "2023",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 5"
-    },
-    {
-        title: "Guardians of the Galaxy Vol. 3",
-        year: "2023",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 5"
-    },
-    {
-        title: "Secret Invasion",
-        year: "2023",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 5"
-    },
-    {
-        title: "I Am Groot (Season 2)",
-        year: "2023",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 5"
-    },
-    {
-        title: "Loki (Season 2)",
-        year: "2023",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 5"
-    },
-    {
-        title: "The Marvels",
-        year: "2023",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 5"
-    },
-    {
-        title: "What If...? (Season 2)",
-        year: "2023",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 5"
-    },
-    {
-        title: "Echo",
-        year: "2024",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 5"
-    },
-    {
-        title: "X-Men '97 (Season 1)",
-        year: "2024",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 5"
-    },
-    {
-        title: "Deadpool & Wolverine",
-        year: "2024",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 5"
-    },
-    {
-        title: "Agatha All Along",
-        year: "2024",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 5"
-    },
-    {
-        title: "What If...? (Season 3)",
-        year: "2024",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 5"
-    },
-    {
-        title: "Your Friendly Neighborhood Spider-Man (Season 1)",
-        year: "2025",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 5"
-    },
-    {
-        title: "Captain America: Brave New World",
-        year: "2025",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 5"
-    },
-    {
-        title: "Daredevil: Born Again (Season 1)",
-        year: "2025",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 5"
-    },
-    {
-        title: "Thunderbolts*",
-        year: "2025",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 5"
-    },
-    {
-        title: "Ironheart",
-        year: "2025",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 5"
-    },
+    item(
+        "mcu-wandavision",
+        "WandaVision",
+        "2021",
+        "Series",
+        "MCU",
+        "Phase 4"
+    ),
+
+    item(
+        "mcu-falcon-winter-soldier",
+        "The Falcon and the Winter Soldier",
+        "2021",
+        "Series",
+        "MCU",
+        "Phase 4"
+    ),
+
+    item(
+        "mcu-loki-s1",
+        "Loki (Season 1)",
+        "2021",
+        "Series",
+        "MCU",
+        "Phase 4"
+    ),
+
+    item(
+        "mcu-black-widow",
+        "Black Widow",
+        "2021",
+        "Movie",
+        "MCU",
+        "Phase 4"
+    ),
+
+    item(
+        "mcu-what-if-s1",
+        "What If...? (Season 1)",
+        "2021",
+        "Series",
+        "MCU",
+        "Phase 4"
+    ),
+
+    item(
+        "mcu-shang-chi",
+        "Shang-Chi and the Legend of the Ten Rings",
+        "2021",
+        "Movie",
+        "MCU",
+        "Phase 4"
+    ),
+
+    item(
+        "mcu-eternals",
+        "Eternals",
+        "2021",
+        "Movie",
+        "MCU",
+        "Phase 4"
+    ),
+
+    item(
+        "mcu-hawkeye",
+        "Hawkeye",
+        "2021",
+        "Series",
+        "MCU",
+        "Phase 4"
+    ),
+
+    item(
+        "mcu-no-way-home",
+        "Spider-Man: No Way Home",
+        "2021",
+        "Movie",
+        "MCU",
+        "Phase 4"
+    ),
+
+    item(
+        "mcu-moon-knight",
+        "Moon Knight",
+        "2022",
+        "Series",
+        "MCU",
+        "Phase 4"
+    ),
+
+    item(
+        "mcu-doctor-strange-2",
+        "Doctor Strange in the Multiverse of Madness",
+        "2022",
+        "Movie",
+        "MCU",
+        "Phase 4"
+    ),
+
+    item(
+        "mcu-ms-marvel",
+        "Ms. Marvel",
+        "2022",
+        "Series",
+        "MCU",
+        "Phase 4"
+    ),
+
+    item(
+        "mcu-thor-love-thunder",
+        "Thor: Love and Thunder",
+        "2022",
+        "Movie",
+        "MCU",
+        "Phase 4"
+    ),
+
+    item(
+        "mcu-i-am-groot-s1",
+        "I Am Groot (Season 1)",
+        "2022",
+        "Series",
+        "MCU",
+        "Phase 4"
+    ),
+
+    item(
+        "mcu-she-hulk",
+        "She-Hulk: Attorney at Law",
+        "2022",
+        "Series",
+        "MCU",
+        "Phase 4"
+    ),
+
+    item(
+        "mcu-werewolf",
+        "Werewolf by Night",
+        "2022",
+        "Special",
+        "MCU",
+        "Phase 4"
+    ),
+
+    item(
+        "mcu-wakanda-forever",
+        "Black Panther: Wakanda Forever",
+        "2022",
+        "Movie",
+        "MCU",
+        "Phase 4"
+    ),
+
+    item(
+        "mcu-guardians-holiday",
+        "The Guardians of the Galaxy Holiday Special",
+        "2022",
+        "Special",
+        "MCU",
+        "Phase 4"
+    ),
 
 
     /* =====================================================
-       MCU PHASE 6
+       MCU — PHASE 5
     ===================================================== */
 
-    {
-        title: "The Fantastic Four: First Steps",
-        year: "2025",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 6"
-    },
-    {
-        title: "Eyes of Wakanda",
-        year: "2025",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 6"
-    },
-    {
-        title: "Marvel Zombies",
-        year: "2025",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 6"
-    },
-    {
-        title: "Wonder Man",
-        year: "2026",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 6"
-    },
-    {
-        title: "Daredevil: Born Again (Season 2)",
-        year: "2026",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 6"
-    },
-    {
-        title: "The Punisher: One Last Kill",
-        year: "2026",
-        type: "Special",
-        section: "MCU",
-        phase: "Phase 6"
-    },
-    {
-        title: "Spider-Man: Brand New Day",
-        year: "2026",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 6"
-    },
-    {
-        title: "VisionQuest",
-        year: "2026",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 6"
-    },
-    {
-        title: "X-Men '97 (Season 2)",
-        year: "2026",
-        type: "Series",
-        section: "MCU",
-        phase: "Phase 6"
-    },
-    {
-        title: "Avengers: Doomsday",
-        year: "2026",
-        type: "Movie",
-        section: "MCU",
-        phase: "Phase 6"
-    },
+    item(
+        "mcu-quantumania",
+        "Ant-Man and the Wasp: Quantumania",
+        "2023",
+        "Movie",
+        "MCU",
+        "Phase 5"
+    ),
+
+    item(
+        "mcu-guardians-3",
+        "Guardians of the Galaxy Vol. 3",
+        "2023",
+        "Movie",
+        "MCU",
+        "Phase 5"
+    ),
+
+    item(
+        "mcu-secret-invasion",
+        "Secret Invasion",
+        "2023",
+        "Series",
+        "MCU",
+        "Phase 5"
+    ),
+
+    item(
+        "mcu-i-am-groot-s2",
+        "I Am Groot (Season 2)",
+        "2023",
+        "Series",
+        "MCU",
+        "Phase 5"
+    ),
+
+    item(
+        "mcu-loki-s2",
+        "Loki (Season 2)",
+        "2023",
+        "Series",
+        "MCU",
+        "Phase 5"
+    ),
+
+    item(
+        "mcu-marvels",
+        "The Marvels",
+        "2023",
+        "Movie",
+        "MCU",
+        "Phase 5"
+    ),
+
+    item(
+        "mcu-what-if-s2",
+        "What If...? (Season 2)",
+        "2023",
+        "Series",
+        "MCU",
+        "Phase 5"
+    ),
+
+    item(
+        "mcu-echo",
+        "Echo",
+        "2024",
+        "Series",
+        "MCU",
+        "Phase 5"
+    ),
+
+    item(
+        "mcu-deadpool-wolverine",
+        "Deadpool & Wolverine",
+        "2024",
+        "Movie",
+        "MCU",
+        "Phase 5"
+    ),
+
+    item(
+        "mcu-agatha",
+        "Agatha All Along",
+        "2024",
+        "Series",
+        "MCU",
+        "Phase 5"
+    ),
+
+    item(
+        "mcu-what-if-s3",
+        "What If...? (Season 3)",
+        "2024",
+        "Series",
+        "MCU",
+        "Phase 5"
+    ),
+
+    item(
+        "mcu-friendly-neighborhood-s1",
+        "Your Friendly Neighborhood Spider-Man (Season 1)",
+        "2025",
+        "Series",
+        "MCU",
+        "Phase 5"
+    ),
+
+    item(
+        "mcu-brave-new-world",
+        "Captain America: Brave New World",
+        "2025",
+        "Movie",
+        "MCU",
+        "Phase 5"
+    ),
+
+    item(
+        "mcu-born-again-s1",
+        "Daredevil: Born Again (Season 1)",
+        "2025",
+        "Series",
+        "MCU",
+        "Phase 5"
+    ),
+
+    item(
+        "mcu-thunderbolts",
+        "Thunderbolts*",
+        "2025",
+        "Movie",
+        "MCU",
+        "Phase 5"
+    ),
+
+    item(
+        "mcu-ironheart",
+        "Ironheart",
+        "2025",
+        "Series",
+        "MCU",
+        "Phase 5"
+    ),
 
 
     /* =====================================================
-       X-MEN MOVIES
-       FOX / MARVEL LEGACY
+       MCU — PHASE 6
     ===================================================== */
 
-    {
-        title: "X-Men",
-        year: "2000",
-        type: "Movie",
-        section: "X-MEN",
-        phase: "X-Men Movies"
-    },
-    {
-        title: "X2: X-Men United",
-        year: "2003",
-        type: "Movie",
-        section: "X-MEN",
-        phase: "X-Men Movies"
-    },
-    {
-        title: "X-Men: The Last Stand",
-        year: "2006",
-        type: "Movie",
-        section: "X-MEN",
-        phase: "X-Men Movies"
-    },
-    {
-        title: "X-Men Origins: Wolverine",
-        year: "2009",
-        type: "Movie",
-        section: "X-MEN",
-        phase: "X-Men Movies"
-    },
-    {
-        title: "X-Men: First Class",
-        year: "2011",
-        type: "Movie",
-        section: "X-MEN",
-        phase: "X-Men Movies"
-    },
-    {
-        title: "The Wolverine",
-        year: "2013",
-        type: "Movie",
-        section: "X-MEN",
-        phase: "X-Men Movies"
-    },
-    {
-        title: "X-Men: Days of Future Past",
-        year: "2014",
-        type: "Movie",
-        section: "X-MEN",
-        phase: "X-Men Movies"
-    },
-    {
-        title: "Deadpool",
-        year: "2016",
-        type: "Movie",
-        section: "X-MEN",
-        phase: "X-Men Movies"
-    },
-    {
-        title: "X-Men: Apocalypse",
-        year: "2016",
-        type: "Movie",
-        section: "X-MEN",
-        phase: "X-Men Movies"
-    },
-    {
-        title: "Logan",
-        year: "2017",
-        type: "Movie",
-        section: "X-MEN",
-        phase: "X-Men Movies"
-    },
-    {
-        title: "Deadpool 2",
-        year: "2018",
-        type: "Movie",
-        section: "X-MEN",
-        phase: "X-Men Movies"
-    },
-    {
-        title: "Dark Phoenix",
-        year: "2019",
-        type: "Movie",
-        section: "X-MEN",
-        phase: "X-Men Movies"
-    },
-    {
-        title: "The New Mutants",
-        year: "2020",
-        type: "Movie",
-        section: "X-MEN",
-        phase: "X-Men Movies"
-    },
+    item(
+        "mcu-fantastic-four",
+        "The Fantastic Four: First Steps",
+        "2025",
+        "Movie",
+        "MCU",
+        "Phase 6"
+    ),
+
+    item(
+        "mcu-eyes-wakanda",
+        "Eyes of Wakanda",
+        "2025",
+        "Series",
+        "MCU",
+        "Phase 6"
+    ),
+
+    item(
+        "mcu-marvel-zombies",
+        "Marvel Zombies",
+        "2025",
+        "Series",
+        "MCU",
+        "Phase 6"
+    ),
+
+    item(
+        "mcu-wonder-man",
+        "Wonder Man (Season 1)",
+        "2026",
+        "Series",
+        "MCU",
+        "Phase 6"
+    ),
+
+    item(
+        "mcu-born-again-s2",
+        "Daredevil: Born Again (Season 2)",
+        "2026",
+        "Series",
+        "MCU",
+        "Phase 6"
+    ),
+
+    item(
+        "mcu-punisher-one-last-kill",
+        "The Punisher: One Last Kill",
+        "2026",
+        "Special",
+        "MCU",
+        "Phase 6"
+    ),
+
+    item(
+        "mcu-brand-new-day",
+        "Spider-Man: Brand New Day",
+        "2026",
+        "Movie",
+        "MCU",
+        "Phase 6"
+    ),
+
+    item(
+        "mcu-visionquest",
+        "VisionQuest",
+        "2026",
+        "Series",
+        "MCU",
+        "Phase 6 — Upcoming",
+        { upcoming: true }
+    ),
+
+    item(
+        "mcu-doomsday",
+        "Avengers: Doomsday",
+        "2026",
+        "Movie",
+        "MCU",
+        "Phase 6 — Upcoming",
+        { upcoming: true }
+    ),
+
+    item(
+        "mcu-secret-wars",
+        "Avengers: Secret Wars",
+        "2027",
+        "Movie",
+        "MCU",
+        "Phase 6 — Upcoming",
+        { upcoming: true }
+    ),
+
+
+    /* =====================================================
+       SPIDER-MAN — NON-MCU
+       WATCHED AS A SEPARATE MARVEL COLLECTION
+    ===================================================== */
+
+    item(
+        "spider-tobey-1",
+        "Spider-Man",
+        "2002",
+        "Movie",
+        "SPIDER-MAN",
+        "Tobey Maguire"
+    ),
+
+    item(
+        "spider-tobey-2",
+        "Spider-Man 2",
+        "2004",
+        "Movie",
+        "SPIDER-MAN",
+        "Tobey Maguire"
+    ),
+
+    item(
+        "spider-tobey-3",
+        "Spider-Man 3",
+        "2007",
+        "Movie",
+        "SPIDER-MAN",
+        "Tobey Maguire"
+    ),
+
+    item(
+        "spider-andrew-1",
+        "The Amazing Spider-Man",
+        "2012",
+        "Movie",
+        "SPIDER-MAN",
+        "Andrew Garfield"
+    ),
+
+    item(
+        "spider-andrew-2",
+        "The Amazing Spider-Man 2",
+        "2014",
+        "Movie",
+        "SPIDER-MAN",
+        "Andrew Garfield"
+    ),
+
+    item(
+        "spider-into-verse",
+        "Spider-Man: Into the Spider-Verse",
+        "2018",
+        "Movie",
+        "SPIDER-MAN",
+        "Spider-Verse"
+    ),
+
+    item(
+        "spider-across-verse",
+        "Spider-Man: Across the Spider-Verse",
+        "2023",
+        "Movie",
+        "SPIDER-MAN",
+        "Spider-Verse"
+    ),
+
+    item(
+        "spider-beyond-verse",
+        "Spider-Man: Beyond the Spider-Verse",
+        "2027",
+        "Movie",
+        "SPIDER-MAN",
+        "Spider-Verse — Upcoming",
+        { upcoming: true }
+    ),
+
+
+    /* =====================================================
+       SONY SPIDER-MAN UNIVERSE
+    ===================================================== */
+
+    item(
+        "sony-venom",
+        "Venom",
+        "2018",
+        "Movie",
+        "SONY",
+        "Sony Spider-Man Universe"
+    ),
+
+    item(
+        "sony-venom-2",
+        "Venom: Let There Be Carnage",
+        "2021",
+        "Movie",
+        "SONY",
+        "Sony Spider-Man Universe"
+    ),
+
+    item(
+        "sony-morbius",
+        "Morbius",
+        "2022",
+        "Movie",
+        "SONY",
+        "Sony Spider-Man Universe"
+    ),
+
+    item(
+        "sony-madame-web",
+        "Madame Web",
+        "2024",
+        "Movie",
+        "SONY",
+        "Sony Spider-Man Universe"
+    ),
+
+    item(
+        "sony-kraven",
+        "Kraven the Hunter",
+        "2024",
+        "Movie",
+        "SONY",
+        "Sony Spider-Man Universe"
+    ),
+
+    item(
+        "sony-venom-3",
+        "Venom: The Last Dance",
+        "2024",
+        "Movie",
+        "SONY",
+        "Sony Spider-Man Universe"
+    ),
+
+
+    /* =====================================================
+       X-MEN — LIVE ACTION
+    ===================================================== */
+
+    item(
+        "xmen-1",
+        "X-Men",
+        "2000",
+        "Movie",
+        "X-MEN",
+        "X-Men Movies"
+    ),
+
+    item(
+        "xmen-2",
+        "X2: X-Men United",
+        "2003",
+        "Movie",
+        "X-MEN",
+        "X-Men Movies"
+    ),
+
+    item(
+        "xmen-3",
+        "X-Men: The Last Stand",
+        "2006",
+        "Movie",
+        "X-MEN",
+        "X-Men Movies"
+    ),
+
+    item(
+        "xmen-wolverine-origins",
+        "X-Men Origins: Wolverine",
+        "2009",
+        "Movie",
+        "X-MEN",
+        "X-Men Movies"
+    ),
+
+    item(
+        "xmen-first-class",
+        "X-Men: First Class",
+        "2011",
+        "Movie",
+        "X-MEN",
+        "X-Men Movies"
+    ),
+
+    item(
+        "xmen-wolverine",
+        "The Wolverine",
+        "2013",
+        "Movie",
+        "X-MEN",
+        "X-Men Movies"
+    ),
+
+    item(
+        "xmen-days-future-past",
+        "X-Men: Days of Future Past",
+        "2014",
+        "Movie",
+        "X-MEN",
+        "X-Men Movies"
+    ),
+
+    item(
+        "xmen-deadpool",
+        "Deadpool",
+        "2016",
+        "Movie",
+        "X-MEN",
+        "X-Men Movies"
+    ),
+
+    item(
+        "xmen-apocalypse",
+        "X-Men: Apocalypse",
+        "2016",
+        "Movie",
+        "X-MEN",
+        "X-Men Movies"
+    ),
+
+    item(
+        "xmen-logan",
+        "Logan",
+        "2017",
+        "Movie",
+        "X-MEN",
+        "X-Men Movies"
+    ),
+
+    item(
+        "xmen-deadpool-2",
+        "Deadpool 2",
+        "2018",
+        "Movie",
+        "X-MEN",
+        "X-Men Movies"
+    ),
+
+    item(
+        "xmen-dark-phoenix",
+        "Dark Phoenix",
+        "2019",
+        "Movie",
+        "X-MEN",
+        "X-Men Movies"
+    ),
+
+    item(
+        "xmen-new-mutants",
+        "The New Mutants",
+        "2020",
+        "Movie",
+        "X-MEN",
+        "X-Men Movies"
+    ),
 
 
     /* =====================================================
        X-MEN / MARVEL ANIMATION
     ===================================================== */
 
-    {
-        title: "X-Men: The Animated Series",
-        year: "1992",
-        type: "Series",
-        section: "X-MEN",
-        phase: "X-Men Series"
-    },
-    {
-        title: "X-Men: Evolution",
-        year: "2000",
-        type: "Series",
-        section: "X-MEN",
-        phase: "X-Men Series"
-    },
-    {
-        title: "Wolverine and the X-Men",
-        year: "2008",
-        type: "Series",
-        section: "X-MEN",
-        phase: "X-Men Series"
-    },
-    {
-        title: "Marvel Anime: X-Men",
-        year: "2011",
-        type: "Series",
-        section: "X-MEN",
-        phase: "X-Men Series"
-    },
-    {
-        title: "Legion (Season 1)",
-        year: "2017",
-        type: "Series",
-        section: "X-MEN",
-        phase: "X-Men Series"
-    },
-    {
-        title: "Legion (Season 2)",
-        year: "2018",
-        type: "Series",
-        section: "X-MEN",
-        phase: "X-Men Series"
-    },
-    {
-        title: "Legion (Season 3)",
-        year: "2019",
-        type: "Series",
-        section: "X-MEN",
-        phase: "X-Men Series"
-    },
-    {
-        title: "The Gifted (Season 1)",
-        year: "2017",
-        type: "Series",
-        section: "X-MEN",
-        phase: "X-Men Series"
-    },
-    {
-        title: "The Gifted (Season 2)",
-        year: "2018",
-        type: "Series",
-        section: "X-MEN",
-        phase: "X-Men Series"
-    },
-    {
-        title: "X-Men '97 (Season 1)",
-        year: "2024",
-        type: "Series",
-        section: "X-MEN",
-        phase: "X-Men Series"
-    },
-    {
-        title: "X-Men '97 (Season 2)",
-        year: "2026",
-        type: "Series",
-        section: "X-MEN",
-        phase: "X-Men Series"
-    }
+    item(
+        "xmen-animated-series",
+        "X-Men: The Animated Series",
+        "1992",
+        "Series",
+        "X-MEN",
+        "X-Men Series"
+    ),
+
+    item(
+        "xmen-evolution",
+        "X-Men: Evolution",
+        "2000",
+        "Series",
+        "X-MEN",
+        "X-Men Series"
+    ),
+
+    item(
+        "xmen-wolverine-series",
+        "Wolverine and the X-Men",
+        "2008",
+        "Series",
+        "X-MEN",
+        "X-Men Series"
+    ),
+
+    item(
+        "xmen-anime",
+        "Marvel Anime: X-Men",
+        "2011",
+        "Series",
+        "X-MEN",
+        "X-Men Series"
+    ),
+
+    item(
+        "xmen-legion-s1",
+        "Legion (Season 1)",
+        "2017",
+        "Series",
+        "X-MEN",
+        "X-Men Series"
+    ),
+
+    item(
+        "xmen-legion-s2",
+        "Legion (Season 2)",
+        "2018",
+        "Series",
+        "X-MEN",
+        "X-Men Series"
+    ),
+
+    item(
+        "xmen-legion-s3",
+        "Legion (Season 3)",
+        "2019",
+        "Series",
+        "X-MEN",
+        "X-Men Series"
+    ),
+
+    item(
+        "xmen-gifted-s1",
+        "The Gifted (Season 1)",
+        "2017",
+        "Series",
+        "X-MEN",
+        "X-Men Series"
+    ),
+
+    item(
+        "xmen-gifted-s2",
+        "The Gifted (Season 2)",
+        "2018",
+        "Series",
+        "X-MEN",
+        "X-Men Series"
+    ),
+
+    item(
+        "xmen-97-s1",
+        "X-Men '97 (Season 1)",
+        "2024",
+        "Series",
+        "X-MEN",
+        "X-Men Series"
+    ),
+
+    item(
+        "xmen-97-s2",
+        "X-Men '97 (Season 2)",
+        "2026",
+        "Series",
+        "X-MEN",
+        "X-Men Series"
+    ),
+
+
+    /* =====================================================
+       MARVEL LEGACY TELEVISION
+       NOT PART OF CURRENT MCU COMPLETE TIMELINE
+    ===================================================== */
+
+    item(
+        "legacy-agents-shield-s1",
+        "Agents of S.H.I.E.L.D. (Season 1)",
+        "2013",
+        "Series",
+        "MARVEL LEGACY",
+        "Agents of S.H.I.E.L.D."
+    ),
+
+    item(
+        "legacy-agents-shield-s2",
+        "Agents of S.H.I.E.L.D. (Season 2)",
+        "2014",
+        "Series",
+        "MARVEL LEGACY",
+        "Agents of S.H.I.E.L.D."
+    ),
+
+    item(
+        "legacy-agents-shield-s3",
+        "Agents of S.H.I.E.L.D. (Season 3)",
+        "2015",
+        "Series",
+        "MARVEL LEGACY",
+        "Agents of S.H.I.E.L.D."
+    ),
+
+    item(
+        "legacy-agents-shield-s4",
+        "Agents of S.H.I.E.L.D. (Season 4)",
+        "2016",
+        "Series",
+        "MARVEL LEGACY",
+        "Agents of S.H.I.E.L.D."
+    ),
+
+    item(
+        "legacy-agents-shield-s5",
+        "Agents of S.H.I.E.L.D. (Season 5)",
+        "2017",
+        "Series",
+        "MARVEL LEGACY",
+        "Agents of S.H.I.E.L.D."
+    ),
+
+    item(
+        "legacy-agents-shield-s6",
+        "Agents of S.H.I.E.L.D. (Season 6)",
+        "2019",
+        "Series",
+        "MARVEL LEGACY",
+        "Agents of S.H.I.E.L.D."
+    ),
+
+    item(
+        "legacy-agents-shield-s7",
+        "Agents of S.H.I.E.L.D. (Season 7)",
+        "2020",
+        "Series",
+        "MARVEL LEGACY",
+        "Agents of S.H.I.E.L.D."
+    ),
+
+    item(
+        "legacy-agent-carter-s1",
+        "Agent Carter (Season 1)",
+        "2015",
+        "Series",
+        "MARVEL LEGACY",
+        "Agent Carter"
+    ),
+
+    item(
+        "legacy-agent-carter-s2",
+        "Agent Carter (Season 2)",
+        "2016",
+        "Series",
+        "MARVEL LEGACY",
+        "Agent Carter"
+    ),
+
+    item(
+        "legacy-inhumans",
+        "Inhumans",
+        "2017",
+        "Series",
+        "MARVEL LEGACY",
+        "Marvel Television"
+    ),
+
+    item(
+        "legacy-runaways-s1",
+        "Runaways (Season 1)",
+        "2017",
+        "Series",
+        "MARVEL LEGACY",
+        "Runaways"
+    ),
+
+    item(
+        "legacy-runaways-s2",
+        "Runaways (Season 2)",
+        "2018",
+        "Series",
+        "MARVEL LEGACY",
+        "Runaways"
+    ),
+
+    item(
+        "legacy-runaways-s3",
+        "Runaways (Season 3)",
+        "2019",
+        "Series",
+        "MARVEL LEGACY",
+        "Runaways"
+    ),
+
+    item(
+        "legacy-cloak-dagger-s1",
+        "Cloak & Dagger (Season 1)",
+        "2018",
+        "Series",
+        "MARVEL LEGACY",
+        "Cloak & Dagger"
+    ),
+
+    item(
+        "legacy-cloak-dagger-s2",
+        "Cloak & Dagger (Season 2)",
+        "2019",
+        "Series",
+        "MARVEL LEGACY",
+        "Cloak & Dagger"
+    ),
+
+
+    /* =====================================================
+       OTHER MARVEL ANIMATION
+    ===================================================== */
+
+    item(
+        "legacy-modok",
+        "M.O.D.O.K.",
+        "2021",
+        "Series",
+        "MARVEL LEGACY",
+        "Marvel Animation"
+    ),
+
+    item(
+        "legacy-hit-monkey-s1",
+        "Hit-Monkey (Season 1)",
+        "2021",
+        "Series",
+        "MARVEL LEGACY",
+        "Marvel Animation"
+    ),
+
+    item(
+        "legacy-hit-monkey-s2",
+        "Hit-Monkey (Season 2)",
+        "2024",
+        "Series",
+        "MARVEL LEGACY",
+        "Marvel Animation"
+    )
 
 ];
 
 
 /* =========================================================
-   ELEMENTS
+   ORIGINAL LIST INDEXES
+
+   This is the EXACT index order from your ORIGINAL code.
+
+   This lets the new tracker migrate:
+       marvel-watched-0
+       marvel-watched-1
+       ...
+   into the new permanent-ID system.
+
+   IMPORTANT:
+   Do NOT delete this section.
 ========================================================= */
 
-const container =
-    document.getElementById("list-container");
+const legacyIndexMap = [
 
-const progressText =
-    document.getElementById("progress-text");
+    /* 0 - 5 */
+    "mcu-iron-man",
+    "mcu-incredible-hulk",
+    "mcu-iron-man-2",
+    "mcu-thor",
+    "mcu-captain-america-first-avenger",
+    "mcu-avengers",
 
-const progressBar =
-    document.getElementById("progress-bar");
+    /* 6 - 11 */
+    "mcu-iron-man-3",
+    "mcu-thor-dark-world",
+    "mcu-winter-soldier",
+    "mcu-guardians-1",
+    "mcu-age-of-ultron",
+    "mcu-ant-man",
+
+    /* 12 - 22 */
+    "mcu-civil-war",
+    "mcu-doctor-strange",
+    "mcu-guardians-2",
+    "mcu-spider-man-homecoming",
+    "mcu-thor-ragnarok",
+    "mcu-black-panther",
+    "mcu-infinity-war",
+    "mcu-ant-man-wasp",
+    "mcu-captain-marvel",
+    "mcu-endgame",
+    "mcu-far-from-home",
+
+    /* 23 - 40 */
+    "mcu-wandavision",
+    "mcu-falcon-winter-soldier",
+    "mcu-loki-s1",
+    "mcu-black-widow",
+    "mcu-what-if-s1",
+    "mcu-shang-chi",
+    "mcu-eternals",
+    "mcu-hawkeye",
+    "mcu-no-way-home",
+    "mcu-moon-knight",
+    "mcu-doctor-strange-2",
+    "mcu-ms-marvel",
+    "mcu-thor-love-thunder",
+    "mcu-i-am-groot-s1",
+    "mcu-she-hulk",
+    "mcu-werewolf",
+    "mcu-wakanda-forever",
+    "mcu-guardians-holiday",
+
+    /* 41 - 57 */
+    "mcu-quantumania",
+    "mcu-guardians-3",
+    "mcu-secret-invasion",
+    "mcu-i-am-groot-s2",
+    "mcu-loki-s2",
+    "mcu-marvels",
+    "mcu-what-if-s2",
+    "mcu-echo",
+
+    /*
+       Original X-Men '97 S1 was here.
+       It is now correctly stored in the X-MEN section.
+    */
+    "xmen-97-s1",
+
+    "mcu-deadpool-wolverine",
+    "mcu-agatha",
+    "mcu-what-if-s3",
+    "mcu-friendly-neighborhood-s1",
+    "mcu-brave-new-world",
+    "mcu-born-again-s1",
+    "mcu-thunderbolts",
+    "mcu-ironheart",
+
+    /* 58 - 67 */
+    /*
+       Original Phase 6
+    */
+
+    "mcu-fantastic-four",
+    "mcu-eyes-wakanda",
+    "mcu-marvel-zombies",
+    "mcu-wonder-man",
+    "mcu-born-again-s2",
+    "mcu-punisher-one-last-kill",
+    "mcu-brand-new-day",
+
+    /*
+       Original code had X-Men '97 S2 here.
+       It is now correctly stored in X-MEN.
+    */
+    "xmen-97-s2",
+
+    "mcu-doomsday",
+
+    /*
+       Original array ended here.
+    */
+];
 
 
 /* =========================================================
    STORAGE
 ========================================================= */
 
-function isWatched(index) {
+const STORAGE_PREFIX = "marvel-watched-v2-";
+
+
+function getStorageKey(item) {
+    return STORAGE_PREFIX + item.id;
+}
+
+
+function isWatched(item) {
+
     return localStorage.getItem(
-        `marvel-watched-${index}`
+        getStorageKey(item)
     ) === "true";
 }
 
 
-function setWatched(index, value) {
+function setWatched(item, value) {
+
     localStorage.setItem(
-        `marvel-watched-${index}`,
+        getStorageKey(item),
         value
     );
+}
+
+
+/* =========================================================
+   MIGRATE OLD PROGRESS
+========================================================= */
+
+function migrateOldProgress() {
+
+    legacyIndexMap.forEach((newId, oldIndex) => {
+
+        const oldKey =
+            `marvel-watched-${oldIndex}`;
+
+        const oldValue =
+            localStorage.getItem(oldKey);
+
+        if (oldValue !== "true") {
+            return;
+        }
+
+        const newItem =
+            marvelData.find(
+                item => item.id === newId
+            );
+
+        if (!newItem) {
+            return;
+        }
+
+        const newKey =
+            getStorageKey(newItem);
+
+        /*
+           Never overwrite new progress if it already exists.
+        */
+
+        if (
+            localStorage.getItem(newKey) === null
+        ) {
+            localStorage.setItem(
+                newKey,
+                "true"
+            );
+        }
+    });
 }
 
 
@@ -1106,17 +1888,33 @@ function setWatched(index, value) {
    BADGE CLASS
 ========================================================= */
 
-function getBadgeClass(type) {
+function getBadgeClass(item) {
 
-    if (type === "Movie") {
+    if (item.upcoming) {
+        return "badge-upcoming";
+    }
+
+    if (item.type === "Movie") {
         return "badge-movie";
     }
 
-    if (type === "Series") {
+    if (item.type === "Series") {
+
+        if (
+            item.section === "X-MEN" ||
+            item.section === "MARVEL LEGACY"
+        ) {
+            return "badge-legacy";
+        }
+
         return "badge-series";
     }
 
-    return "badge-special";
+    if (item.type === "Special") {
+        return "badge-special";
+    }
+
+    return "badge-animation";
 }
 
 
@@ -1131,10 +1929,12 @@ function renderList() {
     let currentSection = "";
     let currentPhase = "";
 
-    marvelData.forEach((item, index) => {
 
+    marvelData.forEach((item) => {
 
-        /* SECTION HEADER */
+        /* -------------------------------------------------
+           SECTION HEADER
+        ------------------------------------------------- */
 
         if (item.section !== currentSection) {
 
@@ -1147,16 +1947,38 @@ function renderList() {
             section.className =
                 "section-divider";
 
+
+            const sectionNames = {
+
+                "MCU":
+                    "Marvel Cinematic Universe",
+
+                "SPIDER-MAN":
+                    "Spider-Man",
+
+                "SONY":
+                    "Sony Spider-Man Universe",
+
+                "X-MEN":
+                    "X-Men & Marvel Legacy",
+
+                "MARVEL LEGACY":
+                    "Marvel Legacy & Other Marvel"
+            };
+
+
             section.textContent =
-                item.section === "MCU"
-                    ? "Marvel Cinematic Universe"
-                    : "X-Men & Marvel Legacy";
+                sectionNames[item.section] ||
+                item.section;
+
 
             container.appendChild(section);
         }
 
 
-        /* PHASE HEADER */
+        /* -------------------------------------------------
+           PHASE HEADER
+        ------------------------------------------------- */
 
         if (item.phase !== currentPhase) {
 
@@ -1175,7 +1997,9 @@ function renderList() {
         }
 
 
-        /* CARD */
+        /* -------------------------------------------------
+           CARD
+        ------------------------------------------------- */
 
         const card =
             document.createElement("div");
@@ -1184,23 +2008,44 @@ function renderList() {
             "item-card";
 
         card.id =
-            `marvel-${index}`;
+            `marvel-${item.id}`;
 
 
-        /* RESTORE WATCHED STATE */
+        /* -------------------------------------------------
+           UPCOMING
+        ------------------------------------------------- */
 
-        if (isWatched(index)) {
-            card.classList.add("watched");
+        if (item.upcoming) {
+
+            card.classList.add(
+                "upcoming-card"
+            );
+
+        } else if (isWatched(item)) {
+
+            card.classList.add(
+                "watched"
+            );
         }
 
 
-        /* BADGE */
+        /* -------------------------------------------------
+           BADGE
+        ------------------------------------------------- */
 
         const badgeClass =
-            getBadgeClass(item.type);
+            getBadgeClass(item);
 
 
-        /* CARD HTML */
+        const badgeText =
+            item.upcoming
+                ? "Upcoming"
+                : item.type;
+
+
+        /* -------------------------------------------------
+           CARD HTML
+        ------------------------------------------------- */
 
         card.innerHTML = `
             <div class="item-left">
@@ -1219,9 +2064,8 @@ function renderList() {
                             ${item.year}
                         </span>
 
-                        <span
-                            class="badge ${badgeClass}">
-                            ${item.type}
+                        <span class="badge ${badgeClass}">
+                            ${badgeText}
                         </span>
 
                     </div>
@@ -1232,17 +2076,30 @@ function renderList() {
         `;
 
 
-        /* CLICK */
+        /* -------------------------------------------------
+           CLICK
+        ------------------------------------------------- */
 
-        card.addEventListener("click", () => {
+        if (!item.upcoming) {
 
-            const watched =
-                card.classList.toggle("watched");
+            card.addEventListener(
+                "click",
+                () => {
 
-            setWatched(index, watched);
+                    const watched =
+                        card.classList.toggle(
+                            "watched"
+                        );
 
-            updateProgress();
-        });
+                    setWatched(
+                        item,
+                        watched
+                    );
+
+                    updateProgress();
+                }
+            );
+        }
 
 
         container.appendChild(card);
@@ -1252,17 +2109,32 @@ function renderList() {
 
 /* =========================================================
    PROGRESS
+
+   Upcoming items are NOT counted.
+
+   This means:
+       "0 / 100"
+   does not become:
+       "0 / 105"
+   because five future projects exist.
 ========================================================= */
 
 function updateProgress() {
 
+    const watchableItems =
+        marvelData.filter(
+            item => !item.upcoming
+        );
+
     const total =
-        marvelData.length;
+        watchableItems.length;
+
 
     const watched =
-        document.querySelectorAll(
-            ".item-card.watched"
+        watchableItems.filter(
+            item => isWatched(item)
         ).length;
+
 
     const percentage =
         total > 0
@@ -1284,6 +2156,8 @@ function updateProgress() {
 /* =========================================================
    START APP
 ========================================================= */
+
+migrateOldProgress();
 
 renderList();
 
