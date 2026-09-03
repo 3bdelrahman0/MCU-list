@@ -1822,19 +1822,21 @@ function getStorageKey(item) {
 
 
 function isWatched(item) {
-
-    return localStorage.getItem(
-        getStorageKey(item)
-    ) === "true";
+    try {
+        return localStorage.getItem(getStorageKey(item)) === "true";
+    } catch (error) {
+        console.warn("localStorage is unavailable:", error);
+        return false;
+    }
 }
 
 
 function setWatched(item, value) {
-
-    localStorage.setItem(
-        getStorageKey(item),
-        value
-    );
+    try {
+        localStorage.setItem(getStorageKey(item), value);
+    } catch (error) {
+        console.warn("Could not save watch progress:", error);
+    }
 }
 
 
@@ -1849,8 +1851,12 @@ function migrateOldProgress() {
         const oldKey =
             `marvel-watched-${oldIndex}`;
 
-        const oldValue =
-            localStorage.getItem(oldKey);
+        let oldValue = null;
+        try {
+            oldValue = localStorage.getItem(oldKey);
+        } catch (error) {
+            console.warn("Could not read old watch progress:", error);
+        }
 
         if (oldValue !== "true") {
             return;
@@ -1872,13 +1878,12 @@ function migrateOldProgress() {
            Never overwrite new progress if it already exists.
         */
 
-        if (
-            localStorage.getItem(newKey) === null
-        ) {
-            localStorage.setItem(
-                newKey,
-                "true"
-            );
+        try {
+            if (localStorage.getItem(newKey) === null) {
+                localStorage.setItem(newKey, "true");
+            }
+        } catch (error) {
+            console.warn("Could not migrate watch progress:", error);
         }
     });
 }
@@ -2157,10 +2162,17 @@ function updateProgress() {
    START APP
 ========================================================= */
 
-migrateOldProgress();
-
+/* Render first so the list still appears even if browser storage is unavailable. */
 renderList();
 
+try {
+    migrateOldProgress();
+} catch (error) {
+    console.warn("Progress migration skipped:", error);
+}
+
+/* Re-render so any migrated watched items are immediately shown. */
+renderList();
 updateProgress();
 
 </script>
